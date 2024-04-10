@@ -84,10 +84,9 @@ public class Main {
 		System.out.println("==============================================");
 
 		System.out.print("메뉴 선택>> ");
-		int num = sc.nextInt();
-		sc.nextLine();// 버퍼클리어
+		String input = sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
+		int num = Integer.parseInt(input); // 형 변환
 		return num;
-
 	}
 
 	// 유저 로그인
@@ -142,10 +141,10 @@ public class Main {
 	// 회원가입
 	private static void joinMembership() {
 		String[] writeCustomer = new String[Customer.CUSTOMERINFONUM];
-//		String[] writeCart = new String[CartItem.CARTIFONUM];
 		System.out.println("회원 가입 하시겠습니까? Y|N");
 		String str = sc.nextLine();
 		boolean quit = false;
+		boolean ageFlag = false;
 		if (str.toUpperCase().equals("Y")) {
 			while (!quit) {
 				System.out.print("아이디: ");
@@ -164,8 +163,25 @@ public class Main {
 				writeCustomer[3] = sc.nextLine();
 				System.out.print("주소: ");
 				writeCustomer[4] = sc.nextLine();
-				System.out.print("나이 (숫자 만): ");
-				writeCustomer[5] = sc.nextLine();
+
+				while (!ageFlag) {
+					System.out.print("나이 (숫자 만): ");
+					String input = sc.nextLine().replaceAll("[^0-9]", "");// 숫자 이외 공백 처리
+
+					if (input.length() == 0) {// 숫자를 한번도 입력하지 않으면
+						input = "0";//null 방지 (사실 필요 없으니 보험삼아)
+						System.out.println("숫자만 입력해주세요.");
+						continue;
+					}
+					if (input.equals("0")) {
+						System.out.println("1세 미만은 가입이 불가합니다.");
+						continue;
+					} else {
+						writeCustomer[5] = input;
+						ageFlag = true;
+					}//end of else if
+				}//end of while
+
 				writeCustomer[6] = "Basic";// 회원 가입시 등급 무조건 Basic
 				writeCustomer[7] = "0";// 회원 가입시 구매 총금액 무조건 0
 				writeCustomer[8] = "0";// 회원 가입시 마일리지 무조건 0
@@ -195,7 +211,7 @@ public class Main {
 			userList.clear();
 			setUserToList(userList);
 		} else {
-			System.out.println("회원을 추가하지 않습니다.");
+			System.out.println("회원 가입을 취소합니다.");
 			quit = true;
 		}
 	}// end of joinMembership
@@ -274,21 +290,24 @@ public class Main {
 				String str = sc.nextLine();
 				if (str.toUpperCase().equals("Y")) {
 					System.out.print("추가할 수량을 입력해주세요: ");
-					numTicket = sc.nextInt();
-					sc.nextLine();// 버퍼클리어
+
+					String input = sc.nextLine().replaceAll("[^0-9]", "0");// 0~9 이외는 0
+					numTicket = Integer.parseInt(input); // 형 변환
 
 					// 잔여 좌석과 살 티켓 수량 비교
 					if (Admin.performanceList.get(numIndex).getSoldSeats() + numTicket > Admin.performanceList
 							.get(numIndex).getTotalSeats()) {
 						System.out.println("잔여 좌석보다 구매 수량이 많습니다.");
+					} else if (numTicket == 0) {
+						System.out.println("수량을 바르게 입력해주세요.");
 					} else {
 
 //						Performance.printSeats(Admin.performanceList, inputID);// 좌석 보여주기
 						// 좌석 고르기
 						String seatNum = askSeatNum(numTicket, inputID, numIndex);// 고른 좌석 받음.
+						System.out.println("----------------------------------------------");
 						System.out.println(performanceList.get(numIndex).getName() + " 공연이 장바구니에 추가되었습니다.");
 						System.out.println("선택한 좌석은 " + seatNum.toUpperCase() + " 입니다.");
-
 						// 장바구니에 넣기이미 카트에 항목 있으면 수량만 업데이트
 						if (!cart.isCartInPerformance(performanceList.get(numIndex).getPerformanceID(), numTicket,
 								seatNum)) { // 이미 카트에 항목 있으면 수량만 업데이트
@@ -309,31 +328,51 @@ public class Main {
 	private static String askSeatNum(int numTicket, String inputID, int numIndex) {
 		StringBuffer seatNum = new StringBuffer();// 수량 만큼 문자 수정해야해서 String 대신 StringBuffer
 		boolean flag = false;// 이미 고른 좌석인지 검사
-		for (int i = 0; i < numTicket; i++) {// 수량 만큼 반복문 돌리기
+		int count = 0;// 좌석 번호 정해진 수
+		while (!flag) {
+			System.out.println("----------------------------------------------");
 			Performance.printSeats(Admin.performanceList, inputID);
-			while (!flag) {
-				System.out.print("좌석 번호를 골라주세요 (ex:1A): ");
-				String input = sc.nextLine();
-				seatNum.append(input);
-				String[] seatYX = input.split("");// seatYX[0]은 열번호 seatYX[1]은 행 번호
-				String[][] seats = Admin.performanceList.get(numIndex).getSeats();// 좌석 받아옴
-				String xNum = seatYX[1].toUpperCase();// 일단 대문자로 바꿔줌
-				if (seats[Integer.parseInt(seatYX[0].toString())-1][((int) (xNum.charAt(0))) - 65].equals("■")) {
+			System.out.print("좌석 번호를 골라주세요 (ex:1A): ");
+			String input = sc.nextLine();
+
+			String[] seatYX = input.split("");// seatYX[0]은 열번호 seatYX[1]은 행 번호
+			String[][] seats = Admin.performanceList.get(numIndex).getSeats();// 좌석 받아옴
+			String xNum = seatYX[1].toUpperCase();// 일단 대문자로 바꿔줌
+
+			try {
+				if (seats[Integer.parseInt(seatYX[0].toString()) - 1][((int) (xNum.charAt(0))) - 65].equals("■")) {
 					System.out.println("이미 선택된 좌석입니다.");
-					seatNum=null;
-					seatNum = new StringBuffer();//StringBuffer 초기화
-					
-				}else {
+				}else if(seats[Integer.parseInt(seatYX[0].toString()) - 1][((int) (xNum.charAt(0))) - 65].equals("x")) {
+						System.out.println("선택이 불가한 좌석입니다.");
+				} else {
 					System.out.println("선택 가능한 좌석입니다.");
-					flag=true;
-					break;
+					++count;
+					// 선택한 좌석 표시 바꿔주기
+					seats[Integer.parseInt(seatYX[0].toString()) - 1][((int) (xNum.charAt(0))) - 65] = "■";// 아스키코드로
+					seatNum.append(input);
+					// 바꿔서
+					Admin.performanceList.get(numIndex).setSeats(seats);// 좌석정보 리스트에 업데이트
+					Admin.savePerformanceFile(Admin.performanceList);// 파일에 다시 저장
+//				Admin.performanceList.clear();// 리스트 초기화
+//				Admin.setPerformanceToList();// 팔린 티켓 수량 반영
+
+					if (count != numTicket) {// 마지막 티켓이 아니라면...
+						seatNum.append(",");
+					}
+					if (count == numTicket) {// 살 티켓 수만큼 좌석 번호 정했다면
+						flag = true;
+					}
+//				break;
 				}
-			}
-			if (i != numTicket - 1) {
-				seatNum.append(",");
-			}
-		}
-		return seatNum.toString();
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("좌석을 예시와 같은 형식으로 입력해주세요");
+			} catch (NumberFormatException e) {
+				System.out.println("좌석을 예시와 같은 형식으로 입력해주세요");
+			} catch (Exception e) {
+				System.out.println("좌석을 바르게 입력해주세요");
+			} // end of try catch
+		} // end of while
+		return seatNum.toString();// StringBuffer string으로 형변환
 	}
 
 	// 공연 파일 읽어 공연 개수 계산 함
@@ -454,8 +493,8 @@ public class Main {
 		System.out.println("==============================================");
 
 		System.out.print("메뉴 선택>> ");
-		int num = sc.nextInt();
-		sc.nextLine();// 버퍼클리어
+		String input = sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
+		int num = Integer.parseInt(input); // 형 변환
 		return num;
 	}
 
@@ -475,8 +514,8 @@ public class Main {
 		System.out.println("==============================================");
 
 		System.out.print("메뉴 선택>> ");
-		int num = sc.nextInt();
-		sc.nextLine();// 버퍼클리어
+		String input = sc.nextLine().replaceAll("[^1-5]", "0");// 1~4 이외는 0으로
+		int num = Integer.parseInt(input); // 형 변환
 		return num;
 	}
 
@@ -490,8 +529,8 @@ public class Main {
 		System.out.println("==============================================");
 
 		System.out.print("메뉴 선택>> ");
-		int num = sc.nextInt();
-		sc.nextLine();// 버퍼클리어
+		String input = sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
+		int num = Integer.parseInt(input); // 형 변환
 		return num;
 	}// end of mainInfo
 
@@ -510,21 +549,28 @@ public class Main {
 			case "장바구니 항목 삭제":
 				try {
 					cartRemoveItem();
-				} catch (CartException e1) {
-					e1.printStackTrace();
+				} catch (CartException e) {
+					System.out.println(e.getMessage());
 				}
 				break;
 			case "장바구니 모두 비우기":
 				try {
 					cartClear();
 				} catch (CartException e) {
-//					e.printStackTrace();
 					System.out.println(e.getMessage());
 
 				}
 				break;
 			case "결제 하기":
-				buy();
+				try {
+					if (cart.cartCount == 0) {
+						throw new CartException("장바구니가 비어있습니다. 장바구니에 공연을 담아주세요.");
+					} else {
+						buy();
+					}
+				} catch (CartException e) {
+					System.out.println(e.getMessage());
+				}
 				break;
 			case "이전 메뉴로":
 				quit = true;
@@ -534,66 +580,49 @@ public class Main {
 		} // end of while
 	}// end of cart
 
-	private static void buy() {
+	private static void buy() throws CartException {
 		int count = 0;// 구매 개수
-		System.out.println("장바구니에 모든 항목을 결제합니다.");
+		System.out.println("장바구니에 모든 항목을 결제하고 장바구니는 비워집니다.");
 		System.out.println("결제하시겠습니까? Y|N ");
 		String str = sc.nextLine();
 		if (str.toUpperCase().equals("Y")) {
 			paymentList.addAll(cart.cartItem);
 			System.out.println("감사합니다. 결제가 완료 되었습니다.");
-			try {
-				cartClear();
-			} catch (CartException e) {
-				e.printStackTrace();
+			cart.deleteCart(); // 장바구니 비우기
+
+			int price = payment.printPayment(paymentList);
+
+			nowUser.setAccumulatedPayment(nowUser.getAccumulatedPayment() + price);// 누적 구매액 수정
+			nowUser.setMileage((int) (nowUser.getMileage() + price * 0.01));// 마일리지 1%씩 적립
+			nowUser.setBuyNum(nowUser.getBuyNum() + payment.totalcount);// 누적 구매 항목수 수정
+			if (nowUser.getAccumulatedPayment() > 150000) {
+				nowUser.setGrade("VIP");
 			}
-		} // end of it
+			Admin.saveUserToFile();// 변경된 내용이 있으므로 저장
 
-		int price = payment.printPayment(paymentList);
+			for (int j = 0; j < paymentList.size(); j++) {
+				for (int i = 0; i < Admin.performanceList.size(); i++) {// 공연리스트에 들어가 있는 것 만큼 돌려서
+					if (Admin.performanceList.get(i).getPerformanceID().equals(paymentList.get(j).getPerformanceId())) {// 구매한
+						Admin.performanceList.get(i).setSoldSeats(
+								Admin.performanceList.get(i).getSoldSeats() + paymentList.get(j).getQuantity());
+					} // end of if
+				} // end of for
+			} // end of for
 
-		nowUser.setAccumulatedPayment(nowUser.getAccumulatedPayment() + price);// 누적 구매액 수정
-		nowUser.setMileage((int) (nowUser.getMileage() + price * 0.01));// 마일리지 1%씩 적립
-		nowUser.setBuyNum(nowUser.getBuyNum() + payment.totalcount);// 누적 구매 항목수 수정
-		if (nowUser.getAccumulatedPayment() > 150000) {
-			nowUser.setGrade("VIP");
-		}
-		Admin.saveUserToFile();// 변경된 내용이 있으므로 저장
+			Admin.savePerformanceFile(Admin.performanceList);// 파일에 다시 저장
+			Admin.performanceList.clear();// 초기화
+			Admin.setPerformanceToList();// 팔린 티켓 수량 반영
 
-		for (int j = 0; j < paymentList.size(); j++) {
-			for (int i = 0; i < Admin.performanceList.size(); i++) {// 공연리스트에 들어가 있는 것 만큼 돌려서
-				if (Admin.performanceList.get(i).getPerformanceID().equals(paymentList.get(j).getPerformanceId())) {// 구매한
-																													// 것과
-																													// 같은
-																													// 공연Id이
-																													// 있다면..
-					Admin.performanceList.get(i).setSoldSeats(
-							Admin.performanceList.get(i).getSoldSeats() + paymentList.get(j).getQuantity());
+			writePaymentFile(paymentList);
+			System.out.println("구매 내역 작성 완료!");
+			payment.totalcount = 0;// 초기화
+			paymentList.clear();// 초기화
+			totalPaymentList.clear();// 초기화
+			setPaymaentToList(totalPaymentList, nowUser);// 다시 저장
+		} else {
+			System.out.println("결제를 취소합니다.");
+		} // end of else if
 
-					String[][] updateSeats = Admin.performanceList.get(i).getSeats();// 기존 리스트에 좌석 2차원 배열 가져옴
-					String[] seatNumSplit = paymentList.get(j).getSeatNum().split(",");// 좌석 별로 끊어서 배열 생성
-					for (int k = 0; k < seatNumSplit.length; k++) {
-						String[] seatsYX = seatNumSplit[k].split("");// seatsYX[0]에 열 번호 seatsYX[1]에 행 번호
-						String xNum = seatsYX[1].toUpperCase();// 일단 대문자로 바꿔줌
-						updateSeats[Integer.parseInt(seatsYX[0].toString())-1][((int) (xNum.charAt(0))) - 65] = "■";// 아스키코드로
-																													// 바꿔서
-																													// A->1
-						Admin.performanceList.get(i).setSeats(updateSeats);
-					}
-				}
-			}
-		}
-		Admin.savePerformanceFile(Admin.performanceList);// 파일에 다시 저장
-		Admin.performanceList.clear();// 초기화
-		System.out.println("초기화 완료!");
-		Admin.setPerformanceToList();// 팔린 티켓 수량 반영
-		System.out.println("리스트 로딩 완료!");
-
-		writePaymentFile(paymentList);
-		System.out.println("구매 내역 작성 완료!");
-		payment.totalcount = 0;// 초기화
-		paymentList.clear();// 초기화
-		totalPaymentList.clear();// 초기화
-		setPaymaentToList(totalPaymentList, nowUser);// 다시 저장
 	}
 
 	private static void cartRemoveItem() throws CartException {
