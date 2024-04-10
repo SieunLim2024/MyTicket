@@ -15,7 +15,7 @@ public class Cart implements CartInterface {
 
 	public ArrayList<CartItem> cartItem = new ArrayList<>();
 	public static int cartCount = 0;
-	public static int totalcount = 0;// êµ¬ë§¤í•œ í•­ëª© ìˆ˜
+	public static int totalcount = 0;// ±¸¸ÅÇÑ Ç×¸ñ ¼ö
 
 	public Cart() {
 		super();
@@ -27,15 +27,15 @@ public class Cart implements CartInterface {
 //		this.paymentItem=paymentItem;
 	}
 
-	// ì¹´íŠ¸ ë©”ë‰´ ì„ íƒ
+	// Ä«Æ® ¸Ş´º ¼±ÅÃ
 	public static int cartInfo() {
 		System.out.println("==============================================");
-		System.out.println("1.ì¥ë°”êµ¬ë‹ˆ í•­ëª© ì‚­ì œ 2.ì¥ë°”êµ¬ë‹ˆ ëª¨ë‘ ë¹„ìš°ê¸°");
-		System.out.println("3.ê²°ì œ í•˜ê¸° 4.ì´ì „ ë©”ë‰´ë¡œ");
+		System.out.println("1.Àå¹Ù±¸´Ï Ç×¸ñ »èÁ¦ 2.Àå¹Ù±¸´Ï ¸ğµÎ ºñ¿ì±â");
+		System.out.println("3.°áÁ¦ ÇÏ±â 4.ÀÌÀü ¸Ş´º·Î");
 		System.out.println("==============================================");
-		System.out.print("ë©”ë‰´ ì„ íƒ>> ");
+		System.out.print("¸Ş´º ¼±ÅÃ>> ");
 		int num = Main.sc.nextInt();
-		Main.sc.nextLine();// ë²„í¼í´ë¦¬ì–´
+		Main.sc.nextLine();// ¹öÆÛÅ¬¸®¾î
 		return num;
 
 	}
@@ -89,11 +89,12 @@ public class Cart implements CartInterface {
 	}
 
 	@Override
-	public boolean isCartInPerformance(String id, int quantity) {
+	public boolean isCartInPerformance(String id, int quantity,String seatNum) {
 		boolean flag = false;
 		for (int i = 0; i < cartItem.size(); i++) {
-			if (id.equals(cartItem.get(i).getPerformanceId())) {
-				cartItem.get(i).setQuantity(cartItem.get(i).getQuantity() + quantity);
+			if (id.equals(cartItem.get(i).getPerformanceId())) {//Ä«Æ®¸®½ºÆ® ¾È¿¡ ÀÌ¹Ì ÇØ´ç °ø¿¬ÀÌ µé¾îÀÖ´Ù¸é...
+				cartItem.get(i).setQuantity(cartItem.get(i).getQuantity() + quantity);//¼ö·®¸¸ Áõ°¡
+				cartItem.get(i).setSeatNum(cartItem.get(i).getSeatNum()+","+seatNum);//ÁÂ¼® ¹øÈ£ Ãß°¡ÇØÁÜ
 				flag = true;
 			}
 		}
@@ -123,12 +124,12 @@ public class Cart implements CartInterface {
 	@Override
 	public void printCart() {
 		System.out.println("==============================================");
-		System.out.println("ì¥ë°”êµ¬ë‹ˆ ë“±ë¡ ëª©ë¡: ");
+		System.out.println("Àå¹Ù±¸´Ï µî·Ï ¸ñ·Ï: ");
 		System.out.println("----------------------------------------------");
 		if (cartCount == 0) {
-			System.out.println("ì¥ë°”êµ¬ë‹ˆê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤.");
+			System.out.println("Àå¹Ù±¸´Ï°¡ ºñ¾îÀÖ½À´Ï´Ù.");
 		} else {
-			System.out.println("ìˆ˜ëŸ‰\tì´ì•¡\tì¢Œì„ ë²ˆí˜¸\tê³µì—°ID\t\t    ê³µì—°ëª…");
+			System.out.println("¼ö·®\tÃÑ¾×\tÁÂ¼® ¹øÈ£\t°ø¿¬ID\t\t    °ø¿¬¸í");
 			for (int i = 0; i < cartItem.size(); i++) {
 				System.out.print(cartItem.get(i).getQuantity() + "\t:");
 				System.out.print(cartItem.get(i).getTotalPrice() + "\t:");
@@ -142,17 +143,17 @@ public class Cart implements CartInterface {
 
 	public static int printPayment(ArrayList<CartItem> list) {
 		int totalPrice = 0;
-		double discountRate = 0;// í• ì¸ìœ¨
+		double discountRate = 0;// ÇÒÀÎÀ²
 		if (Main.nowUser.getGrade().equals("VIP")) {
-			discountRate = 0.01;// vipë©´ í• ì¸ í•´ì¤Œ
+			discountRate = 0.01;// vip¸é ÇÒÀÎ ÇØÁÜ
 		}
 		System.out.println("==============================================");
-		System.out.println("ì˜ìˆ˜ì¦: ");
+		System.out.println("¿µ¼öÁõ: ");
 		System.out.println("----------------------------------------------");
 		if (list.size() == 0) {
-			System.out.println("ì•„ì§ êµ¬ë§¤ ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.");
+			System.out.println("¾ÆÁ÷ ±¸¸Å ³»¿ªÀÌ ¾ø½À´Ï´Ù.");
 		} else {
-			System.out.println("ìˆ˜ëŸ‰\tì´ì•¡\tì¢Œì„ ë²ˆí˜¸\t\tê³µì—°ID\t\t    ê³µì—°ëª…");
+			System.out.println("¼ö·®\tÃÑ¾×\tÁÂ¼® ¹øÈ£\t\t°ø¿¬ID\t\t    °ø¿¬¸í");
 			for (int i = 0; i < list.size(); i++) {
 				System.out.print(list.get(i).getQuantity() + "\t:");
 				System.out.print(list.get(i).getTotalPrice() + "\t:");
@@ -160,12 +161,12 @@ public class Cart implements CartInterface {
 				System.out.print(list.get(i).getPerformanceId() + "   :");
 				System.out.print(list.get(i).getPerformanceName());
 				System.out.println("\t");
-				totalPrice += list.get(i).getTotalPrice();// ê²°ì œí•  ê¸ˆì•¡
+				totalPrice += list.get(i).getTotalPrice();// °áÁ¦ÇÒ ±İ¾×
 				totalcount++;
 			}
 			System.out.println("----------------------------------------------");
-			System.out.println("í• ì¸: " + (int) (totalPrice * discountRate));
-			System.out.println("í•©ê³„: " + (totalPrice - ((int) (totalPrice * discountRate))));// ìµœì¢… ê°€ê²©
+			System.out.println("ÇÒÀÎ: " + (int) (totalPrice * discountRate));
+			System.out.println("ÇÕ°è: " + (totalPrice - ((int) (totalPrice * discountRate))));// ÃÖÁ¾ °¡°İ
 			System.out.println("----------------------------------------------");
 		}
 		return totalPrice;
@@ -173,12 +174,12 @@ public class Cart implements CartInterface {
 
 	public static void printTotalPayment(ArrayList<CartItem> list,Customer nowUser) {
 		System.out.println("==============================================");
-		System.out.println("ëˆ„ì  êµ¬ë§¤ ë‚´ì—­: ");
+		System.out.println("´©Àû ±¸¸Å ³»¿ª: ");
 		System.out.println("----------------------------------------------");
 		if (list.size() == 0) {
-			System.out.println("ì•„ì§ êµ¬ë§¤ ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.");
+			System.out.println("¾ÆÁ÷ ±¸¸Å ³»¿ªÀÌ ¾ø½À´Ï´Ù.");
 		} else {
-			System.out.println("ìˆ˜ëŸ‰\tì´ì•¡\tì¢Œì„ ë²ˆí˜¸\t\tê³µì—°ID\t\t    ê³µì—°ëª…");
+			System.out.println("¼ö·®\tÃÑ¾×\tÁÂ¼® ¹øÈ£\t\t°ø¿¬ID\t\t    °ø¿¬¸í");
 			for (int i = 0; i < list.size(); i++) {
 				System.out.print(list.get(i).getQuantity() + "\t:");
 				System.out.print(list.get(i).getTotalPrice() + "\t:");
@@ -188,7 +189,7 @@ public class Cart implements CartInterface {
 				System.out.println("\t");
 			}
 			System.out.println("----------------------------------------------");
-			System.out.println("ëˆ„ì  êµ¬ë§¤ ê¸ˆì•¡: " + nowUser.getAccumulatedPayment());
+			System.out.println("´©Àû ±¸¸Å ±İ¾×: " + nowUser.getAccumulatedPayment());
 			System.out.println("----------------------------------------------");
 		}
 	}

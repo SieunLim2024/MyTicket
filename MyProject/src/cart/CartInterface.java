@@ -6,24 +6,24 @@ import member.Customer;
 import performance.Performance;
 
 public interface CartInterface {
-	void printPerformanceList(ArrayList<Performance> pList); // ì „ì²´ ê³µì—° ì •ë³´ ëª©ë¡ ì¶œë ¥
+	void printPerformanceList(ArrayList<Performance> pList); // ÀüÃ¼ °ø¿¬ Á¤º¸ ¸ñ·Ï Ãâ·Â
 //	void printCart(CartItem cartItem);
 
-	boolean isCartInPerformance(String id,int quantity); // ì¥ë°”êµ¬ë‹ˆì— ë‹´ê¸´ ê°¯ìˆ˜ë¥¼ ê³ ê° ì„ì˜ ì§€ì • ì¢Œì„ê°¯ìˆ˜ ì¦ê°€
+	boolean isCartInPerformance(String id,int quantity,String seatNum); // Àå¹Ù±¸´Ï¿¡ ´ã±ä °¹¼ö¸¦ °í°´ ÀÓÀÇ ÁöÁ¤ ÁÂ¼®°¹¼ö Áõ°¡
 
-	void insertPerformance(Performance p,int quantity,Customer nowUser,String seatNum); // CartItemì— ê³µì—° ì •ë³´ë¥¼ ë“±ë¡
+	void insertPerformance(Performance p,int quantity,Customer nowUser,String seatNum); // CartItem¿¡ °ø¿¬ Á¤º¸¸¦ µî·Ï
 
-	void removeCart(int numId); // ì¥ë°”êµ¬ë‹ˆ ìˆœë²ˆ numIdì˜ í•­ëª©ì„ ì‚­ì œ
+	void removeCart(int numId); // Àå¹Ù±¸´Ï ¼ø¹ø numIdÀÇ Ç×¸ñÀ» »èÁ¦
 
-	void deleteCart(); // ì¥ë°”êµ¬ë‹ˆì˜ ëª¨ë“  í•­ëª©ì„ ì‚­ì œ
+	void deleteCart(); // Àå¹Ù±¸´ÏÀÇ ¸ğµç Ç×¸ñÀ» »èÁ¦
 	
 	void printCart();
-//	void payPerformance(); //ê²°ì œ(ì¥ë°”êµ¬ë‹ˆ ë¹„ìš°ê³ , ê²°ì œë‚´ì—­ ë¦¬ìŠ¤íŠ¸ì— addí•˜ê¸°)
-	//(ë§Œì•½ íŒ”ë¦° ì¢Œì„ == ì´ì¢Œì„ ì´ë©´ ë§¤ì§„ë˜ì–´ êµ¬ë§¤í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.) â˜…ê¼­
+//	void payPerformance(); //°áÁ¦(Àå¹Ù±¸´Ï ºñ¿ì°í, °áÁ¦³»¿ª ¸®½ºÆ®¿¡ addÇÏ±â)
+	//(¸¸¾à ÆÈ¸° ÁÂ¼® == ÃÑÁÂ¼® ÀÌ¸é ¸ÅÁøµÇ¾î ±¸¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù.) ¡Ú²À
 	
 	
 	
 	
-	//ê³µì—°ì¼ ì§€ë‚˜ë©´ êµ¬ë§¤ ì•ˆë¨
-	// ìš°ì„  ì¢Œì„ ì§€ì •ì—†ì´ í‹°ì¼“ êµ¬ë§¤ìê°€ ì„ ì°©ìˆœìœ¼ë¡œ ì•‰ê¸°(ë‚˜ì¤‘ì— ì‹œê°„ìˆëŠ” ì‚¬ëŒì€ 2ì°¨ì› ë°°ì—´)
+	//°ø¿¬ÀÏ Áö³ª¸é ±¸¸Å ¾ÈµÊ
+	// ¿ì¼± ÁÂ¼® ÁöÁ¤¾øÀÌ Æ¼ÄÏ ±¸¸ÅÀÚ°¡ ¼±Âø¼øÀ¸·Î ¾É±â(³ªÁß¿¡ ½Ã°£ÀÖ´Â »ç¶÷Àº 2Â÷¿ø ¹è¿­)
 }

@@ -21,7 +21,7 @@ import member.Customer;
 import performance.Performance;
 
 public class Main {
-	public static final int INFONUM = 10; // íšŒì› ì •ë³´ í•­ëª© ê°œìˆ˜
+	public static final int INFONUM = 10; // È¸¿ø Á¤º¸ Ç×¸ñ °³¼ö
 	public static Scanner sc = new Scanner(System.in);
 	public static ArrayList<Customer> userList = new ArrayList<Customer>();
 	public static ArrayList<CartItem> paymentList = new ArrayList<>();
@@ -30,84 +30,84 @@ public class Main {
 	public static Cart payment = new Cart();
 	static boolean checkLogin = false;
 	static boolean duplicateID = false;
-	public static Customer nowUser = null; // ë¡œê·¸ì¸ í•œ ê³„ì • ì €ì¥
-	public static int nowUserIndex = 0; // ë¡œê·¸ì¸ í•œ ê³„ì • ì €ì¥
+	public static Customer nowUser = null; // ·Î±×ÀÎ ÇÑ °èÁ¤ ÀúÀå
+	public static int nowUserIndex = 0; // ·Î±×ÀÎ ÇÑ °èÁ¤ ÀúÀå
 
 	public static void main(String[] args) {
 		setUserToList(userList);
 		Admin.setPerformanceToList();
 		login();
-		if (checkLogin) { // ë¡œê·¸ì¸ ì„±ê³µì‹œì— ë©”ì¸ ë©”ë‰´ë¡œss
+		if (checkLogin) { // ·Î±×ÀÎ ¼º°ø½Ã¿¡ ¸ŞÀÎ ¸Ş´º·Îss
 			setPaymaentToList(totalPaymentList, nowUser);
 			mainMenu(nowUser);
 		}
 	}
 
-	// ë¡œê·¸ì¸
+	// ·Î±×ÀÎ
 	private static void login() {
 		boolean quit = false;
 		while (!quit) {
 			int num = loginInfo();
 			if (num < 1 || num > 4) {
-				System.out.println("ë©”ë‰´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("¸Ş´º¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				continue;
 			} // end of if
-			String[] menu = { "ë¡œê·¸ì¸", "íšŒì›ê°€ì…", "ê´€ë¦¬ì ë¡œê·¸ì¸", "ì¢…ë£Œ" };
+			String[] menu = { "·Î±×ÀÎ", "È¸¿ø°¡ÀÔ", "°ü¸®ÀÚ ·Î±×ÀÎ", "Á¾·á" };
 			switch (menu[num - 1]) {
-			case "ë¡œê·¸ì¸":
+			case "·Î±×ÀÎ":
 				nowUser = userLogin();
 				if (checkLogin) {
 					quit = true;
 				}
 				break;
-			case "íšŒì›ê°€ì…":
+			case "È¸¿ø°¡ÀÔ":
 				joinMembership();
 				break;
-			case "ê´€ë¦¬ì ë¡œê·¸ì¸":
+			case "°ü¸®ÀÚ ·Î±×ÀÎ":
 				Admin.adminLogin();
 				break;
-			case "ì¢…ë£Œ":
+			case "Á¾·á":
 				quit = true;
-				System.out.println("ì¢…ë£Œí•©ë‹ˆë‹¤.");
+				System.out.println("Á¾·áÇÕ´Ï´Ù.");
 				break;
 			}// end of switch
 		} // end of while
 	}// end of login
 
-	// ë¡œê·¸ì¸ ë©”ë‰´ ì•ˆë‚´
+	// ·Î±×ÀÎ ¸Ş´º ¾È³»
 	private static int loginInfo() {
 		System.out.println("==============================================");
-		System.out.println("ë°˜ê°‘ìŠµë‹ˆë‹¤. KH í‹°ì¼“ ì…ë‹ˆë‹¤.");
+		System.out.println("¹İ°©½À´Ï´Ù. KH Æ¼ÄÏ ÀÔ´Ï´Ù.");
 		System.out.println("----------------------------------------------");
-		System.out.println("1.ë¡œê·¸ì¸ 2.íšŒì›ê°€ì…");
-		System.out.println("3.ê´€ë¦¬ì ë¡œê·¸ì¸ 4.ì¢…ë£Œ");
+		System.out.println("1.·Î±×ÀÎ 2.È¸¿ø°¡ÀÔ");
+		System.out.println("3.°ü¸®ÀÚ ·Î±×ÀÎ 4.Á¾·á");
 		System.out.println("==============================================");
 
-		System.out.print("ë©”ë‰´ ì„ íƒ>> ");
+		System.out.print("¸Ş´º ¼±ÅÃ>> ");
 		int num = sc.nextInt();
-		sc.nextLine();// ë²„í¼í´ë¦¬ì–´
+		sc.nextLine();// ¹öÆÛÅ¬¸®¾î
 		return num;
 
 	}
 
-	// ìœ ì € ë¡œê·¸ì¸
+	// À¯Àú ·Î±×ÀÎ
 	private static Customer userLogin() {
-		System.out.println("ìœ ì € ë¡œê·¸ì¸");
-		// ìœ ì € ë¡œê·¸ì¸ ì„±ê³µì‹œ checkLogin trueë¡œ ë³€ê²½
-		System.out.print("ì•„ì´ë””:");
+		System.out.println("À¯Àú ·Î±×ÀÎ");
+		// À¯Àú ·Î±×ÀÎ ¼º°ø½Ã checkLogin true·Î º¯°æ
+		System.out.print("¾ÆÀÌµğ:");
 		String inputId = sc.nextLine();
-		System.out.print("ë¹„ë°€ë²ˆí˜¸:");
+		System.out.print("ºñ¹Ğ¹øÈ£:");
 		String inputPw = sc.nextLine();
 		for (int i = 0; i < userList.size(); i++) {
 			if (inputId.equals(userList.get(i).getId()) && inputPw.equals(userList.get(i).getPw())) {
 				checkLogin = true;
 				nowUserIndex = i;
-				System.out.println("ë¡œê·¸ì¸ ì„±ê³µ!");
+				System.out.println("·Î±×ÀÎ ¼º°ø!");
 				break;
 			}
 		}
 		if (checkLogin == false) {
-			System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
+			System.out.println("·Î±×ÀÎ ½ÇÆĞ");
 		}
 		return userList.get(nowUserIndex);
 	}
@@ -118,7 +118,7 @@ public class Main {
 			reader = new BufferedReader(new FileReader("user.txt"));
 			String userName;
 			String[] readUser = new String[Customer.CUSTOMERINFONUM];
-			while ((userName = reader.readLine()) != null) { // nullì´ ì•„ë‹ë•Œê¹Œì§€ ì½ê¸°
+			while ((userName = reader.readLine()) != null) { // nullÀÌ ¾Æ´Ò¶§±îÁö ÀĞ±â
 				readUser[0] = userName;
 				for (int i = 1; i < Customer.CUSTOMERINFONUM; i++) {
 					readUser[i] = reader.readLine();
@@ -139,16 +139,16 @@ public class Main {
 		}
 	}
 
-	// íšŒì›ê°€ì…
+	// È¸¿ø°¡ÀÔ
 	private static void joinMembership() {
 		String[] writeCustomer = new String[Customer.CUSTOMERINFONUM];
 //		String[] writeCart = new String[CartItem.CARTIFONUM];
-		System.out.println("íšŒì› ê°€ì… í•˜ì‹œê² ìŠµë‹ˆê¹Œ? Y|N");
+		System.out.println("È¸¿ø °¡ÀÔ ÇÏ½Ã°Ú½À´Ï±î? Y|N");
 		String str = sc.nextLine();
 		boolean quit = false;
 		if (str.toUpperCase().equals("Y")) {
 			while (!quit) {
-				System.out.print("ì•„ì´ë””: ");
+				System.out.print("¾ÆÀÌµğ: ");
 				String id = sc.nextLine();
 				duplicateID = serchId(id);
 				if (duplicateID) {
@@ -156,30 +156,30 @@ public class Main {
 					break;
 				}
 				writeCustomer[0] = id;
-				System.out.print("ë¹„ë°€ë²ˆí˜¸: ");
+				System.out.print("ºñ¹Ğ¹øÈ£: ");
 				writeCustomer[1] = sc.nextLine();
-				System.out.print("ì´ë¦„:");
+				System.out.print("ÀÌ¸§:");
 				writeCustomer[2] = sc.nextLine();
-				System.out.print("ì—°ë½ì²˜:");
+				System.out.print("¿¬¶ôÃ³:");
 				writeCustomer[3] = sc.nextLine();
-				System.out.print("ì£¼ì†Œ: ");
+				System.out.print("ÁÖ¼Ò: ");
 				writeCustomer[4] = sc.nextLine();
-				System.out.print("ë‚˜ì´ (ìˆ«ì ë§Œ): ");
+				System.out.print("³ªÀÌ (¼ıÀÚ ¸¸): ");
 				writeCustomer[5] = sc.nextLine();
-				writeCustomer[6] = "Basic";// íšŒì› ê°€ì…ì‹œ ë“±ê¸‰ ë¬´ì¡°ê±´ Basic
-				writeCustomer[7] = "0";// íšŒì› ê°€ì…ì‹œ êµ¬ë§¤ ì´ê¸ˆì•¡ ë¬´ì¡°ê±´ 0
-				writeCustomer[8] = "0";// íšŒì› ê°€ì…ì‹œ ë§ˆì¼ë¦¬ì§€ ë¬´ì¡°ê±´ 0
-				writeCustomer[9] = "0";// íšŒì› ê°€ì…ì‹œ êµ¬ë§¤íšŒìˆ˜ ë¬´ì¡°ê±´ 0
-				writeCustomer[10] = "0";// íšŒì› ê°€ì…ì‹œ ì¹´íŠ¸ë‹´ì•„ ë‘” ê²ƒ ë¬´ì¡°ê±´ 0
+				writeCustomer[6] = "Basic";// È¸¿ø °¡ÀÔ½Ã µî±Ş ¹«Á¶°Ç Basic
+				writeCustomer[7] = "0";// È¸¿ø °¡ÀÔ½Ã ±¸¸Å ÃÑ±İ¾× ¹«Á¶°Ç 0
+				writeCustomer[8] = "0";// È¸¿ø °¡ÀÔ½Ã ¸¶ÀÏ¸®Áö ¹«Á¶°Ç 0
+				writeCustomer[9] = "0";// È¸¿ø °¡ÀÔ½Ã ±¸¸ÅÈ¸¼ö ¹«Á¶°Ç 0
+				writeCustomer[10] = "0";// È¸¿ø °¡ÀÔ½Ã Ä«Æ®´ã¾Æ µĞ °Í ¹«Á¶°Ç 0
 				FileWriter fw = null;
 				try {
-					// ìƒˆ ê³ ê° ì •ë³´ë¥¼ íŒŒì¼ì— ì´ì–´ì“°ê¸° ìœ„í•´ ìƒì„±ìì— true ì˜µì…˜ ì„¤ì •
+					// »õ °í°´ Á¤º¸¸¦ ÆÄÀÏ¿¡ ÀÌ¾î¾²±â À§ÇØ »ı¼ºÀÚ¿¡ true ¿É¼Ç ¼³Á¤
 					fw = new FileWriter("user.txt", true);
 
 					for (int i = 0; i < Customer.CUSTOMERINFONUM; i++) {
 						fw.write(writeCustomer[i] + "\n");
 					}
-					System.out.println("íšŒì›ê°€ì…ì´ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤!");
+					System.out.println("È¸¿ø°¡ÀÔÀÌ ¿Ï·á µÇ¾ú½À´Ï´Ù!");
 					quit = true;
 				} catch (Exception e) {
 					System.out.println(e);
@@ -195,7 +195,7 @@ public class Main {
 			userList.clear();
 			setUserToList(userList);
 		} else {
-			System.out.println("íšŒì›ì„ ì¶”ê°€í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			System.out.println("È¸¿øÀ» Ãß°¡ÇÏÁö ¾Ê½À´Ï´Ù.");
 			quit = true;
 		}
 	}// end of joinMembership
@@ -204,122 +204,145 @@ public class Main {
 		boolean flag = false;
 		for (int i = 0; i < userList.size(); i++) {
 			if (id.equals(userList.get(i).getId())) {
-				System.out.println("ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë”” ì…ë‹ˆë‹¤.");
+				System.out.println("ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµğ ÀÔ´Ï´Ù.");
 				flag = true;
 				break;
 			} // end of if
 		} // end of for
 		if (flag == false) {
-			System.out.println("ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤.");
+			System.out.println("»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù.");
 		}
 		return flag;
 	}
 
-	// ë©”ì¸ ë©”ë‰´
+	// ¸ŞÀÎ ¸Ş´º
 	private static void mainMenu(Customer nowUser) {
 		boolean quit = false;
 		while (!quit) {
 			int num = mainInfo();
 			if (num < 1 || num > 4) {
-				System.out.println("ë©”ë‰´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("¸Ş´º¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				continue;
 			} // end of if
-			String[] menu = { "ë‚´ ì •ë³´", "ì¥ë°”êµ¬ë‹ˆ", "ê³µì—°ë³´ê¸°", "ì¢…ë£Œ" };
+			String[] menu = { "³» Á¤º¸", "Àå¹Ù±¸´Ï", "°ø¿¬º¸±â", "Á¾·á" };
 			switch (menu[num - 1]) {
-			case "ë‚´ ì •ë³´":
+			case "³» Á¤º¸":
 				System.out.println("==============================================");
-				System.out.println("ë‚´ ì •ë³´");
+				System.out.println("³» Á¤º¸");
 				System.out.println("----------------------------------------------");
-				System.out.println("ì•„ì´ë””\tì´ë¦„\tì—°ë½ì²˜\t\tì£¼ì†Œ\t\të‚˜ì´\të“±ê¸‰\tëˆ„ì ê²°ì œê¸ˆì•¡\të§ˆì¼ë¦¬ì§€");
-				System.out.println(nowUser); // íšŒì› ì •ë³´ ì¶œë ¥
-				Cart.printTotalPayment(totalPaymentList, nowUser);//ëˆ„ì  êµ¬ë§¤ ë‚´ì—­ ì¶œë ¥
+				System.out.println("¾ÆÀÌµğ\tÀÌ¸§\t¿¬¶ôÃ³\t\tÁÖ¼Ò\t\t³ªÀÌ\tµî±Ş\t´©Àû°áÁ¦±İ¾×\t¸¶ÀÏ¸®Áö");
+				System.out.println(nowUser); // È¸¿ø Á¤º¸ Ãâ·Â
+				Cart.printTotalPayment(totalPaymentList, nowUser);// ´©Àû ±¸¸Å ³»¿ª Ãâ·Â
 				break;
-			case "ì¥ë°”êµ¬ë‹ˆ":
+			case "Àå¹Ù±¸´Ï":
 				cart();
 				break;
-			case "ê³µì—°ë³´ê¸°":
-				selectGenre(); // ì¥ë¥´ ê³ ë¥´ê²Œ í•˜ê¸°
+			case "°ø¿¬º¸±â":
+				selectGenre(); // Àå¸£ °í¸£°Ô ÇÏ±â
 				break;
-			case "ì¢…ë£Œ":
+			case "Á¾·á":
 				quit = true;
-				System.out.println("ì¢…ë£Œí•©ë‹ˆë‹¤.");
+				System.out.println("Á¾·áÇÕ´Ï´Ù.");
 				break;
 			}// end of switch
 		} // end of while
 	}// end of mainMenu
 
 	private static void addCart(ArrayList<Performance> performanceList) {
-//		Admin.setPerformanceToList();
+//		Admin.performanceList.clear();//Ã¼Å©
+//		Admin.setPerformanceToList();//Ã¼Å©
 		boolean quit = false;
 		while (!quit) {
-			System.out.print("ì¥ë°”êµ¬ë‹ˆì— ì¶”ê°€í•  ê³µì—°ì˜ IDë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
+			System.out.print("Àå¹Ù±¸´Ï¿¡ Ãß°¡ÇÒ °ø¿¬ÀÇ ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
 			String inputID = sc.nextLine();
 
-			boolean flag = false; // ì¼ì¹˜ì—¬ë¶€
-			int numId = -1; // ì¸ë±ìŠ¤ ë²ˆí˜¸
+			boolean flag = false; // ÀÏÄ¡¿©ºÎ
+			int numIndex = -1; // ÀÎµ¦½º ¹øÈ£
 			int numTicket = 0;
 
 			for (int i = 0; i < performanceList.size(); i++) {
 				if (inputID.equals(performanceList.get(i).getPerformanceID())) {
-					numId = i;
+					numIndex = i;
 					flag = true;
 					break;
 				}
-			}//end of for
+			} // end of for
 
-			// ì¼ì¹˜í•˜ë©´ ì¥ë°”êµ¬ë‹ˆ ì¶”ê°€ ì—¬ë¶€ë¥¼ ë¬»ëŠ”ë‹¤.
+			// ÀÏÄ¡ÇÏ¸é Àå¹Ù±¸´Ï Ãß°¡ ¿©ºÎ¸¦ ¹¯´Â´Ù.
 			if (flag) {
-				System.out.println("ì¥ë°”êµ¬ë‹ˆì— ì¶”ê°€í•˜ê² ìŠµë‹ˆê¹Œ? Y|N ");
+				System.out.println("Àå¹Ù±¸´Ï¿¡ Ãß°¡ÇÏ°Ú½À´Ï±î? Y|N ");
 				String str = sc.nextLine();
 				if (str.toUpperCase().equals("Y")) {
-					System.out.print("ì¶”ê°€í•  ìˆ˜ëŸ‰ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ");
+					System.out.print("Ãß°¡ÇÒ ¼ö·®À» ÀÔ·ÂÇØÁÖ¼¼¿ä: ");
 					numTicket = sc.nextInt();
-					sc.nextLine();// ë²„í¼í´ë¦¬ì–´
+					sc.nextLine();// ¹öÆÛÅ¬¸®¾î
 
-					// ì”ì—¬ ì¢Œì„ê³¼ ì‚´ í‹°ì¼“ ìˆ˜ëŸ‰ ë¹„êµ
-					if (Admin.performanceList.get(numId).getSoldSeats() + numTicket > Admin.performanceList.get(numId).getTotalSeats()) {
-						System.out.println("ì”ì—¬ ì¢Œì„ë³´ë‹¤ êµ¬ë§¤ ìˆ˜ëŸ‰ì´ ë§ìŠµë‹ˆë‹¤.");
+					// ÀÜ¿© ÁÂ¼®°ú »ì Æ¼ÄÏ ¼ö·® ºñ±³
+					if (Admin.performanceList.get(numIndex).getSoldSeats() + numTicket > Admin.performanceList
+							.get(numIndex).getTotalSeats()) {
+						System.out.println("ÀÜ¿© ÁÂ¼®º¸´Ù ±¸¸Å ¼ö·®ÀÌ ¸¹½À´Ï´Ù.");
 					} else {
-						// ìˆ˜ëŸ‰ ë§Œí¼ ë°˜ë³µë¬¸ ëŒë¦¬ê¸°
-						Performance.printSeats(performanceList, inputID);// ì¢Œì„ ë³´ì—¬ì£¼ê¸°
-						// ì¢Œì„ ê³ ë¥´ê¸°
-						String seatNum= askSeatNum(numTicket);//ê³ ë¥¸ ì¢Œì„ ë°›ìŒ.
-						System.out.println("ê³ ë¥¸ ì¢Œì„ì€ "+seatNum+" ì…ë‹ˆë‹¤.");
-						System.out.println(performanceList.get(numId).getName() + " ê³µì—°ì´ ì¥ë°”êµ¬ë‹ˆì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤.");
 
-						// ì¥ë°”êµ¬ë‹ˆì— ë„£ê¸°ì´ë¯¸ ì¹´íŠ¸ì— í•­ëª© ìˆìœ¼ë©´ ìˆ˜ëŸ‰ë§Œ ì—…ë°ì´íŠ¸
-						if (!cart.isCartInPerformance(performanceList.get(numId).getPerformanceID(), numTicket)) {	//ì´ë¯¸ ì¹´íŠ¸ì— í•­ëª© ìˆìœ¼ë©´ ìˆ˜ëŸ‰ë§Œ ì—…ë°ì´íŠ¸
-							cart.insertPerformance(performanceList.get(numId), numTicket, nowUser, seatNum);		//ì•„ë‹ˆë©´ ì¹´íŠ¸ì— í•­ëª© ì¶”ê°€
-						}//end of if
-					}//end of else if(ìˆ˜ëŸ‰ì´ ì”ì—¬ ì¢Œì„ ë‚´ì¸ì§€...)
+//						Performance.printSeats(Admin.performanceList, inputID);// ÁÂ¼® º¸¿©ÁÖ±â
+						// ÁÂ¼® °í¸£±â
+						String seatNum = askSeatNum(numTicket, inputID, numIndex);// °í¸¥ ÁÂ¼® ¹ŞÀ½.
+						System.out.println(performanceList.get(numIndex).getName() + " °ø¿¬ÀÌ Àå¹Ù±¸´Ï¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù.");
+						System.out.println("¼±ÅÃÇÑ ÁÂ¼®Àº " + seatNum.toUpperCase() + " ÀÔ´Ï´Ù.");
 
-				}//end of if(Yì¸ì§€ ê²€ì‚¬)
+						// Àå¹Ù±¸´Ï¿¡ ³Ö±âÀÌ¹Ì Ä«Æ®¿¡ Ç×¸ñ ÀÖÀ¸¸é ¼ö·®¸¸ ¾÷µ¥ÀÌÆ®
+						if (!cart.isCartInPerformance(performanceList.get(numIndex).getPerformanceID(), numTicket,
+								seatNum)) { // ÀÌ¹Ì Ä«Æ®¿¡ Ç×¸ñ ÀÖÀ¸¸é ¼ö·®¸¸ ¾÷µ¥ÀÌÆ®
+							cart.insertPerformance(performanceList.get(numIndex), numTicket, nowUser, seatNum); // ¾Æ´Ï¸é
+																												// Ä«Æ®¿¡
+																												// Ç×¸ñ Ãß°¡
+						} // end of if
+					} // end of else if(¼ö·®ÀÌ ÀÜ¿© ÁÂ¼® ³»ÀÎÁö...)
+
+				} // end of if(YÀÎÁö °Ë»ç)
 				quit = true;
 			} else {
-				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”");
+				System.out.println("´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä");
 			}
 		}
 	}
 
-	private static String askSeatNum(int numTicket) {
-		StringBuffer seatNum = new StringBuffer();
-		for(int i=0; i<numTicket; i++) {
-			System.out.print("ì¢Œì„ ë²ˆí˜¸ë¥¼ ê³¨ë¼ì£¼ì„¸ìš” (ex:1A): ");
-			seatNum.append(sc.nextLine());
-			if(i!=numTicket-1) {
-				seatNum.append(",");				
+	private static String askSeatNum(int numTicket, String inputID, int numIndex) {
+		StringBuffer seatNum = new StringBuffer();// ¼ö·® ¸¸Å­ ¹®ÀÚ ¼öÁ¤ÇØ¾ßÇØ¼­ String ´ë½Å StringBuffer
+		boolean flag = false;// ÀÌ¹Ì °í¸¥ ÁÂ¼®ÀÎÁö °Ë»ç
+		for (int i = 0; i < numTicket; i++) {// ¼ö·® ¸¸Å­ ¹İº¹¹® µ¹¸®±â
+			Performance.printSeats(Admin.performanceList, inputID);
+			while (!flag) {
+				System.out.print("ÁÂ¼® ¹øÈ£¸¦ °ñ¶óÁÖ¼¼¿ä (ex:1A): ");
+				String input = sc.nextLine();
+				seatNum.append(input);
+				String[] seatYX = input.split("");// seatYX[0]Àº ¿­¹øÈ£ seatYX[1]Àº Çà ¹øÈ£
+				String[][] seats = Admin.performanceList.get(numIndex).getSeats();// ÁÂ¼® ¹Ş¾Æ¿È
+				String xNum = seatYX[1].toUpperCase();// ÀÏ´Ü ´ë¹®ÀÚ·Î ¹Ù²ãÁÜ
+				if (seats[Integer.parseInt(seatYX[0].toString())-1][((int) (xNum.charAt(0))) - 65].equals("¡á")) {
+					System.out.println("ÀÌ¹Ì ¼±ÅÃµÈ ÁÂ¼®ÀÔ´Ï´Ù.");
+					seatNum=null;
+					seatNum = new StringBuffer();//StringBuffer ÃÊ±âÈ­
+					
+				}else {
+					System.out.println("¼±ÅÃ °¡´ÉÇÑ ÁÂ¼®ÀÔ´Ï´Ù.");
+					flag=true;
+					break;
+				}
+			}
+			if (i != numTicket - 1) {
+				seatNum.append(",");
 			}
 		}
 		return seatNum.toString();
 	}
 
-	// ê³µì—° íŒŒì¼ ì½ì–´ ê³µì—° ê°œìˆ˜ ê³„ì‚° í•¨
+	// °ø¿¬ ÆÄÀÏ ÀĞ¾î °ø¿¬ °³¼ö °è»ê ÇÔ
 	private static int countPerformance() {
 		try {
 			FileReader fr = new FileReader("performance.txt");
 			BufferedReader reader = new BufferedReader(fr);
 			String str;
-			int num = 0; // ê³µì—° ê°œìˆ˜
+			int num = 0; // °ø¿¬ °³¼ö
 			while ((str = reader.readLine()) != null) {
 				if (str.contains("pID")) {
 					++num;
@@ -337,50 +360,50 @@ public class Main {
 	private static void selectGenre() {
 		ArrayList<Performance> showList = new ArrayList<Performance>();
 
-		showList.addAll(Admin.performanceList); // ê¹Šì€ ë³µì‚¬í•´ë‘ .
+		showList.addAll(Admin.performanceList); // ±íÀº º¹»çÇØµÒ.
 		boolean quit = false;
 		while (!quit) {
 
 			int num = GenreInfo();
 			if (num < 1 || num > 5) {
-				System.out.println("ë©”ë‰´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("¸Ş´º¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				continue;
 			} // end of if
-			String[] menu = { "ì „ì²´ ë³´ê¸°", "ë®¤ì§€ì»¬", "ì—°ê·¹", "ì½˜ì„œíŠ¸", "ì´ì „ í™”ë©´ìœ¼ë¡œ" };
+			String[] menu = { "ÀüÃ¼ º¸±â", "¹ÂÁöÄÃ", "¿¬±Ø", "ÄÜ¼­Æ®", "ÀÌÀü È­¸éÀ¸·Î" };
 			switch (menu[num - 1]) {
-			case "ì „ì²´ ë³´ê¸°":
+			case "ÀüÃ¼ º¸±â":
 				Performance.printPerformance(showList);
-//				ê³ ë¥¸ê±° ë³´ì—¬ì£¼ê³ ...
+//				°í¸¥°Å º¸¿©ÁÖ°í...
 				sortOrCart(showList);
 				break;
-			case "ë®¤ì§€ì»¬":
+			case "¹ÂÁöÄÃ":
 				ArrayList<Performance> showMList = null;
-				showMList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("ë®¤ì§€ì»¬"))
+				showMList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("¹ÂÁöÄÃ"))
 						.collect(Collectors.toList());
 				Performance.printPerformance(showMList);
-//				ê³ ë¥¸ê±° ë³´ì—¬ì£¼ê³ ...
+//				°í¸¥°Å º¸¿©ÁÖ°í...
 				sortOrCart(showMList);
 				break;
-			case "ì—°ê·¹":
+			case "¿¬±Ø":
 				ArrayList<Performance> showPList = null;
-				showPList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("ì—°ê·¹"))
+				showPList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("¿¬±Ø"))
 						.collect(Collectors.toList());
 				Performance.printPerformance(showPList);
-//				ê³ ë¥¸ê±° ë³´ì—¬ì£¼ê³ ...
+//				°í¸¥°Å º¸¿©ÁÖ°í...
 				sortOrCart(showPList);
 				break;
-			case "ì½˜ì„œíŠ¸":
+			case "ÄÜ¼­Æ®":
 				ArrayList<Performance> showCList = null;
-				showCList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("ì½˜ì„œíŠ¸"))
+				showCList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("ÄÜ¼­Æ®"))
 						.collect(Collectors.toList());
 				Performance.printPerformance(showCList);
-//				ê³ ë¥¸ê±° ë³´ì—¬ì£¼ê³ ...
+//				°í¸¥°Å º¸¿©ÁÖ°í...
 				sortOrCart(showCList);
 				break;
-			case "ì´ì „ í™”ë©´ìœ¼ë¡œ":
+			case "ÀÌÀü È­¸éÀ¸·Î":
 				quit = true;
-				System.out.println("ì¢…ë£Œí•©ë‹ˆë‹¤.");
-				showList.clear();// ì´ˆê¸°í™”
+				System.out.println("Á¾·áÇÕ´Ï´Ù.");
+				showList.clear();// ÃÊ±âÈ­
 				break;
 			}// end of switch
 		} // end of while
@@ -388,35 +411,35 @@ public class Main {
 
 	private static void sortOrCart(ArrayList<Performance> showList) {
 //		ArrayList<Performance> sortList= new ArrayList<Performance>();
-//		sortList.addAll(showList); //ê¹Šì€ ë³µì‚¬í•´ë‘ .
+//		sortList.addAll(showList); //±íÀº º¹»çÇØµÒ.
 		boolean quit = false;
 		while (!quit) {
 			// print
 			int num = sortOrCartInfo();
 			if (num < 1 || num > 4) {
-				System.out.println("ë©”ë‰´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("¸Ş´º¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				continue;
 			} // end of if
-			String[] menu = { "ê°€ê²© ë‚®ì€ ìˆœ", "ê°€ê²© ë†’ì€ ìˆœ", "ì¥ë°”êµ¬ë‹ˆ ë‹´ê¸°", "ì´ì „ ë©”ë‰´ë¡œ" };
+			String[] menu = { "°¡°İ ³·Àº ¼ø", "°¡°İ ³ôÀº ¼ø", "Àå¹Ù±¸´Ï ´ã±â", "ÀÌÀü ¸Ş´º·Î" };
 			switch (menu[num - 1]) {
-			case "ê°€ê²© ë‚®ì€ ìˆœ":
+			case "°¡°İ ³·Àº ¼ø":
 				ArrayList<Performance> showLowList = new ArrayList<Performance>();
-				showLowList.addAll(showList); // ê¹Šì€ ë³µì‚¬í•´ë‘ .
+				showLowList.addAll(showList); // ±íÀº º¹»çÇØµÒ.
 				Collections.sort(showLowList);
 				Performance.printPerformance(showLowList);
 				break;
-			case "ê°€ê²© ë†’ì€ ìˆœ":
+			case "°¡°İ ³ôÀº ¼ø":
 				ArrayList<Performance> showHighList = new ArrayList<Performance>();
-				showHighList.addAll(showList); // ê¹Šì€ ë³µì‚¬í•´ë‘ .
+				showHighList.addAll(showList); // ±íÀº º¹»çÇØµÒ.
 				Collections.sort(showHighList, Comparator.reverseOrder());
 				Performance.printPerformance(showHighList);
 				break;
-			case "ì¥ë°”êµ¬ë‹ˆ ë‹´ê¸°":
+			case "Àå¹Ù±¸´Ï ´ã±â":
 				askaddCart();
 				break;
-			case "ì´ì „ ë©”ë‰´ë¡œ":
+			case "ÀÌÀü ¸Ş´º·Î":
 				quit = true;
-				System.out.println("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
+				System.out.println("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°©´Ï´Ù.");
 				break;
 			}// end of switch
 		} // end of while
@@ -424,15 +447,15 @@ public class Main {
 
 	private static int sortOrCartInfo() {
 		System.out.println("==============================================");
-		System.out.println("ì›í•˜ì‹œëŠ” ë©”ë‰´ ì„ íƒí•´ì£¼ì„¸ìš”.");
+		System.out.println("¿øÇÏ½Ã´Â ¸Ş´º ¼±ÅÃÇØÁÖ¼¼¿ä.");
 		System.out.println("----------------------------------------------");
-		System.out.println("1.ê°€ê²© ë‚®ì€ ìˆœ 2.ê°€ê²© ë†’ì€ ìˆœ");
-		System.out.println("3.ì¥ë°”êµ¬ë‹ˆ ë‹´ê¸° 4.ì´ì „ ë©”ë‰´ë¡œ");
+		System.out.println("1.°¡°İ ³·Àº ¼ø 2.°¡°İ ³ôÀº ¼ø");
+		System.out.println("3.Àå¹Ù±¸´Ï ´ã±â 4.ÀÌÀü ¸Ş´º·Î");
 		System.out.println("==============================================");
 
-		System.out.print("ë©”ë‰´ ì„ íƒ>> ");
+		System.out.print("¸Ş´º ¼±ÅÃ>> ");
 		int num = sc.nextInt();
-		sc.nextLine();// ë²„í¼í´ë¦¬ì–´
+		sc.nextLine();// ¹öÆÛÅ¬¸®¾î
 		return num;
 	}
 
@@ -444,54 +467,54 @@ public class Main {
 
 	private static int GenreInfo() {
 		System.out.println("==============================================");
-		System.out.println("ì›í•˜ì‹œëŠ” ì¥ë¥´ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.");
+		System.out.println("¿øÇÏ½Ã´Â Àå¸£¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.");
 		System.out.println("----------------------------------------------");
-		System.out.println("1.ì „ì²´ ë³´ê¸° 2.ë®¤ì§€ì»¬");
-		System.out.println("3.ì—°ê·¹ 4.ì½˜ì„œíŠ¸");
-		System.out.println("5.ì´ì „ í™”ë©´ìœ¼ë¡œ");
+		System.out.println("1.ÀüÃ¼ º¸±â 2.¹ÂÁöÄÃ");
+		System.out.println("3.¿¬±Ø 4.ÄÜ¼­Æ®");
+		System.out.println("5.ÀÌÀü È­¸éÀ¸·Î");
 		System.out.println("==============================================");
 
-		System.out.print("ë©”ë‰´ ì„ íƒ>> ");
+		System.out.print("¸Ş´º ¼±ÅÃ>> ");
 		int num = sc.nextInt();
-		sc.nextLine();// ë²„í¼í´ë¦¬ì–´
+		sc.nextLine();// ¹öÆÛÅ¬¸®¾î
 		return num;
 	}
 
-	// ë©”ì¸ ë©”ë‰´ ì„ íƒ
+	// ¸ŞÀÎ ¸Ş´º ¼±ÅÃ
 	private static int mainInfo() {
 		System.out.println("==============================================");
-		System.out.println("í™˜ì˜í•©ë‹ˆë‹¤. KH í‹°ì¼“ ì…ë‹ˆë‹¤.");
+		System.out.println("È¯¿µÇÕ´Ï´Ù. KH Æ¼ÄÏ ÀÔ´Ï´Ù.");
 		System.out.println("----------------------------------------------");
-		System.out.println("1.ë‚´ ì •ë³´ 2.ì¥ë°”êµ¬ë‹ˆ");
-		System.out.println("3.ê³µì—°ë³´ê¸° 4.ì¢…ë£Œ");
+		System.out.println("1.³» Á¤º¸ 2.Àå¹Ù±¸´Ï");
+		System.out.println("3.°ø¿¬º¸±â 4.Á¾·á");
 		System.out.println("==============================================");
 
-		System.out.print("ë©”ë‰´ ì„ íƒ>> ");
+		System.out.print("¸Ş´º ¼±ÅÃ>> ");
 		int num = sc.nextInt();
-		sc.nextLine();// ë²„í¼í´ë¦¬ì–´
+		sc.nextLine();// ¹öÆÛÅ¬¸®¾î
 		return num;
 	}// end of mainInfo
 
-	// ë©”ì¸ ë©”ë‰´ì—ì„œ ì¹´íŠ¸ ì„ íƒì‹œ ...
+	// ¸ŞÀÎ ¸Ş´º¿¡¼­ Ä«Æ® ¼±ÅÃ½Ã ...
 	private static void cart() {
 		boolean quit = false;
 		while (!quit) {
 			cart.printCart();
 			int num = Cart.cartInfo();
 			if (num < 1 || num > 4) {
-				System.out.println("ë©”ë‰´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("¸Ş´º¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				continue;
 			} // end of if
-			String[] menu = { "ì¥ë°”êµ¬ë‹ˆ í•­ëª© ì‚­ì œ", "ì¥ë°”êµ¬ë‹ˆ ëª¨ë‘ ë¹„ìš°ê¸°", "ê²°ì œ í•˜ê¸°", "ì´ì „ ë©”ë‰´ë¡œ" };
+			String[] menu = { "Àå¹Ù±¸´Ï Ç×¸ñ »èÁ¦", "Àå¹Ù±¸´Ï ¸ğµÎ ºñ¿ì±â", "°áÁ¦ ÇÏ±â", "ÀÌÀü ¸Ş´º·Î" };
 			switch (menu[num - 1]) {
-			case "ì¥ë°”êµ¬ë‹ˆ í•­ëª© ì‚­ì œ":
+			case "Àå¹Ù±¸´Ï Ç×¸ñ »èÁ¦":
 				try {
 					cartRemoveItem();
 				} catch (CartException e1) {
 					e1.printStackTrace();
 				}
 				break;
-			case "ì¥ë°”êµ¬ë‹ˆ ëª¨ë‘ ë¹„ìš°ê¸°":
+			case "Àå¹Ù±¸´Ï ¸ğµÎ ºñ¿ì±â":
 				try {
 					cartClear();
 				} catch (CartException e) {
@@ -500,25 +523,25 @@ public class Main {
 
 				}
 				break;
-			case "ê²°ì œ í•˜ê¸°":
+			case "°áÁ¦ ÇÏ±â":
 				buy();
 				break;
-			case "ì´ì „ ë©”ë‰´ë¡œ":
+			case "ÀÌÀü ¸Ş´º·Î":
 				quit = true;
-				System.out.println("ì´ì „ ë©”ë‰´ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
+				System.out.println("ÀÌÀü ¸Ş´º·Î µ¹¾Æ°©´Ï´Ù.");
 				break;
 			}// end of switch
 		} // end of while
 	}// end of cart
 
 	private static void buy() {
-		int count = 0;// êµ¬ë§¤ ê°œìˆ˜
-		System.out.println("ì¥ë°”êµ¬ë‹ˆì— ëª¨ë“  í•­ëª©ì„ ê²°ì œí•©ë‹ˆë‹¤.");
-		System.out.println("ê²°ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ? Y|N ");
+		int count = 0;// ±¸¸Å °³¼ö
+		System.out.println("Àå¹Ù±¸´Ï¿¡ ¸ğµç Ç×¸ñÀ» °áÁ¦ÇÕ´Ï´Ù.");
+		System.out.println("°áÁ¦ÇÏ½Ã°Ú½À´Ï±î? Y|N ");
 		String str = sc.nextLine();
 		if (str.toUpperCase().equals("Y")) {
 			paymentList.addAll(cart.cartItem);
-			System.out.println("ê°ì‚¬í•©ë‹ˆë‹¤. ê²°ì œê°€ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			System.out.println("°¨»çÇÕ´Ï´Ù. °áÁ¦°¡ ¿Ï·á µÇ¾ú½À´Ï´Ù.");
 			try {
 				cartClear();
 			} catch (CartException e) {
@@ -528,47 +551,61 @@ public class Main {
 
 		int price = payment.printPayment(paymentList);
 
-		nowUser.setAccumulatedPayment(nowUser.getAccumulatedPayment() + price);// ëˆ„ì  êµ¬ë§¤ì•¡ ìˆ˜ì •
-		nowUser.setMileage((int) (nowUser.getMileage() + price * 0.01));// ë§ˆì¼ë¦¬ì§€ 1%ì”© ì ë¦½
-		nowUser.setBuyNum(nowUser.getBuyNum() + payment.totalcount);// ëˆ„ì  êµ¬ë§¤ í•­ëª©ìˆ˜ ìˆ˜ì •
+		nowUser.setAccumulatedPayment(nowUser.getAccumulatedPayment() + price);// ´©Àû ±¸¸Å¾× ¼öÁ¤
+		nowUser.setMileage((int) (nowUser.getMileage() + price * 0.01));// ¸¶ÀÏ¸®Áö 1%¾¿ Àû¸³
+		nowUser.setBuyNum(nowUser.getBuyNum() + payment.totalcount);// ´©Àû ±¸¸Å Ç×¸ñ¼ö ¼öÁ¤
 		if (nowUser.getAccumulatedPayment() > 150000) {
 			nowUser.setGrade("VIP");
 		}
-		Admin.saveUserToFile();// ë³€ê²½ëœ ë‚´ìš©ì´ ìˆìœ¼ë¯€ë¡œ ì €ì¥
+		Admin.saveUserToFile();// º¯°æµÈ ³»¿ëÀÌ ÀÖÀ¸¹Ç·Î ÀúÀå
 
 		for (int j = 0; j < paymentList.size(); j++) {
-			for (int i = 0; i < Admin.performanceList.size(); i++) {
-				if (Admin.performanceList.get(i).getName().equals(paymentList.get(j).getPerformanceName())) {
-					Admin.performanceList.get(i).setSoldSeats(Admin.performanceList.get(i).getSoldSeats() + paymentList.get(j).getQuantity());
-					//ëŠì–´ì£¼ê³  ë°°ì—´ë¡œ....
-					//ì—¬ê¸° ê²€ì •ìƒ‰ìœ¼ë¡œ ì¹ í•´ì¤˜ì•¼í•´!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			for (int i = 0; i < Admin.performanceList.size(); i++) {// °ø¿¬¸®½ºÆ®¿¡ µé¾î°¡ ÀÖ´Â °Í ¸¸Å­ µ¹·Á¼­
+				if (Admin.performanceList.get(i).getPerformanceID().equals(paymentList.get(j).getPerformanceId())) {// ±¸¸ÅÇÑ
+																													// °Í°ú
+																													// °°Àº
+																													// °ø¿¬IdÀÌ
+																													// ÀÖ´Ù¸é..
+					Admin.performanceList.get(i).setSoldSeats(
+							Admin.performanceList.get(i).getSoldSeats() + paymentList.get(j).getQuantity());
+
+					String[][] updateSeats = Admin.performanceList.get(i).getSeats();// ±âÁ¸ ¸®½ºÆ®¿¡ ÁÂ¼® 2Â÷¿ø ¹è¿­ °¡Á®¿È
+					String[] seatNumSplit = paymentList.get(j).getSeatNum().split(",");// ÁÂ¼® º°·Î ²÷¾î¼­ ¹è¿­ »ı¼º
+					for (int k = 0; k < seatNumSplit.length; k++) {
+						String[] seatsYX = seatNumSplit[k].split("");// seatsYX[0]¿¡ ¿­ ¹øÈ£ seatsYX[1]¿¡ Çà ¹øÈ£
+						String xNum = seatsYX[1].toUpperCase();// ÀÏ´Ü ´ë¹®ÀÚ·Î ¹Ù²ãÁÜ
+						updateSeats[Integer.parseInt(seatsYX[0].toString())-1][((int) (xNum.charAt(0))) - 65] = "¡á";// ¾Æ½ºÅ°ÄÚµå·Î
+																													// ¹Ù²ã¼­
+																													// A->1
+						Admin.performanceList.get(i).setSeats(updateSeats);
+					}
 				}
 			}
 		}
-		Admin.savePerformanceFile(Admin.performanceList);// íŒŒì¼ì— ë‹¤ì‹œ ì €ì¥
-		Admin.performanceList.clear();// ì´ˆê¸°í™”
-		System.out.println("ì´ˆê¸°í™” ì™„ë£Œ!");
-		Admin.setPerformanceToList();// íŒ”ë¦° í‹°ì¼“ ìˆ˜ëŸ‰ ë°˜ì˜
-		System.out.println("ë¦¬ìŠ¤íŠ¸ ë¡œë”© ì™„ë£Œ!");
-		
+		Admin.savePerformanceFile(Admin.performanceList);// ÆÄÀÏ¿¡ ´Ù½Ã ÀúÀå
+		Admin.performanceList.clear();// ÃÊ±âÈ­
+		System.out.println("ÃÊ±âÈ­ ¿Ï·á!");
+		Admin.setPerformanceToList();// ÆÈ¸° Æ¼ÄÏ ¼ö·® ¹İ¿µ
+		System.out.println("¸®½ºÆ® ·Îµù ¿Ï·á!");
+
 		writePaymentFile(paymentList);
-		System.out.println("êµ¬ë§¤ ë‚´ì—­ ì‘ì„± ì™„ë£Œ!");
-		payment.totalcount = 0;// ì´ˆê¸°í™”
-		paymentList.clear();// ì´ˆê¸°í™”
-		totalPaymentList.clear();// ì´ˆê¸°í™”
-		setPaymaentToList(totalPaymentList, nowUser);// ë‹¤ì‹œ ì €ì¥
+		System.out.println("±¸¸Å ³»¿ª ÀÛ¼º ¿Ï·á!");
+		payment.totalcount = 0;// ÃÊ±âÈ­
+		paymentList.clear();// ÃÊ±âÈ­
+		totalPaymentList.clear();// ÃÊ±âÈ­
+		setPaymaentToList(totalPaymentList, nowUser);// ´Ù½Ã ÀúÀå
 	}
 
 	private static void cartRemoveItem() throws CartException {
 		if (cart.cartCount == 0) {
-			throw new CartException("ì¥ë°”êµ¬ë‹ˆ í•­ëª©ì´ ì—†ìŠµë‹ˆë‹¤.");
+			throw new CartException("Àå¹Ù±¸´Ï Ç×¸ñÀÌ ¾ø½À´Ï´Ù.");
 		} else {
 			if (cart.cartCount >= 0) {
 				cart.printCart();
 			}
 			boolean quit = false;
 			while (!quit) {
-				System.out.print("ì¥ë°”êµ¬ë‹ˆì—ì„œ ì‚­ì œí•  ê³µì—°ì˜ IDë¥¼ ì…ë ¥í•˜ì„¸ìš” :");
+				System.out.print("Àå¹Ù±¸´Ï¿¡¼­ »èÁ¦ÇÒ °ø¿¬ÀÇ ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä :");
 				Scanner input = new Scanner(System.in);
 				String str = input.nextLine();
 				boolean flag = false;
@@ -582,31 +619,31 @@ public class Main {
 					}
 				}
 				if (flag) {
-					System.out.println("ì¥ë°”êµ¬ë‹ˆì—ì„œ ì‚­ì œí•˜ê² ìŠµë‹ˆê¹Œ? Y|N ");
+					System.out.println("Àå¹Ù±¸´Ï¿¡¼­ »èÁ¦ÇÏ°Ú½À´Ï±î? Y|N ");
 					str = input.nextLine();
 					if (str.toUpperCase().equals("Y")) {
-						System.out.println(cart.cartItem.get(numId).getPerformanceName() + " ì¥ë°”êµ¬ë‹ˆì—ì„œ ê³µì—°ì´ ì‚­ì œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+						System.out.println(cart.cartItem.get(numId).getPerformanceName() + " Àå¹Ù±¸´Ï¿¡¼­ °ø¿¬ÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
 						cart.removeCart(numId);
 					}
 					quit = true;
 				} else {
-					System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”");
+					System.out.println("´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
 				}
 			}
 		}
 	}
 
-	// ì¹´íŠ¸ ëª¨ë‘ ë¹„ìš°ê¸°
+	// Ä«Æ® ¸ğµÎ ºñ¿ì±â
 	private static void cartClear() throws CartException {
 		if (cart.cartCount == 0) {
-			throw new CartException("ì¥ë°”êµ¬ë‹ˆì— í•­ëª©ì´ ì—†ìŠµë‹ˆë‹¤.");
+			throw new CartException("Àå¹Ù±¸´Ï¿¡ Ç×¸ñÀÌ ¾ø½À´Ï´Ù.");
 		} else {
-			System.out.println("ì¥ë°”êµ¬ë‹ˆì— ëª¨ë“  í•­ëª©ì„ ì‚­ì œ í•˜ê² ìŠµë‹ˆê¹Œ? Y|N ");
+			System.out.println("Àå¹Ù±¸´Ï¿¡ ¸ğµç Ç×¸ñÀ» »èÁ¦ ÇÏ°Ú½À´Ï±î? Y|N ");
 			Scanner input = new Scanner(System.in);
 			String str = input.nextLine();
 
 			if (str.toUpperCase().equals("Y")) {
-				System.out.println("ì¥ë°”êµ¬ë‹ˆì— ëª¨ë“  í•­ëª©ì„ ì‚­ì œí–ˆìŠµë‹ˆë‹¤.");
+				System.out.println("Àå¹Ù±¸´Ï¿¡ ¸ğµç Ç×¸ñÀ» »èÁ¦Çß½À´Ï´Ù.");
 				cart.deleteCart();
 			}
 		} // end of if else
@@ -625,13 +662,13 @@ public class Main {
 		}
 		FileWriter fw = null;
 		try {
-			// ìƒˆ ê³ ê° ì •ë³´ë¥¼ íŒŒì¼ì— ì´ì–´ì“°ê¸° ìœ„í•´ ìƒì„±ìì— true ì˜µì…˜ ì„¤ì •
+			// »õ °í°´ Á¤º¸¸¦ ÆÄÀÏ¿¡ ÀÌ¾î¾²±â À§ÇØ »ı¼ºÀÚ¿¡ true ¿É¼Ç ¼³Á¤
 			fw = new FileWriter("payment.txt", true);
 
 			for (int i = 0; i < CartItem.CARTIFONUM; i++) {
 				fw.write(writePayment[i]);
 			}
-			System.out.println("êµ¬ë§¤ ë‚´ì—­ì´ íŒŒì¼ì— ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			System.out.println("±¸¸Å ³»¿ªÀÌ ÆÄÀÏ¿¡ ÀúÀåµÇ¾ú½À´Ï´Ù.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -643,7 +680,7 @@ public class Main {
 		}
 	}// end of writePaymentFile()
 
-	// íŒŒì¼ì—ì„œ ë¡œê·¸ì¸ í•œ ì‚¬ëŒì˜ êµ¬ë§¤ ë‚´ì—­ë§Œ ë½‘ì•„ì„œ listì— ë„£ìŒ
+	// ÆÄÀÏ¿¡¼­ ·Î±×ÀÎ ÇÑ »ç¶÷ÀÇ ±¸¸Å ³»¿ª¸¸ »Ì¾Æ¼­ list¿¡ ³ÖÀ½
 	public static void setPaymaentToList(ArrayList<CartItem> totalPaymentList, Customer nowUser) {
 		BufferedReader reader = null;
 		try {

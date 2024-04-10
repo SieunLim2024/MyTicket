@@ -8,12 +8,12 @@ public class Customer {
 	private String name;// compare
 	private String phone;
 	private String address;
-	private int age;// ì—¬ê¸°ê¹Œì§€ íšŒì›ê°€ì…
+	private int age;// ¿©±â±îÁö È¸¿ø°¡ÀÔ
 
 	private String grade;
-	private int accumulatedPayment; // ëˆ„ì ê²°ì œê¸ˆì•¡, ë“±ê¸‰ í‰ê°€ì‹œ ì‚¬ìš©í•  ê²ƒ
-	private int mileage; // ê¸°ë³¸ ê³ ê°ë¶€í„° ë§ˆì¼ë¦¬ì§€ ì ë¦½
-	private int buyNum;//ëˆ„ì  êµ¬ë§¤ í•­ëª©ìˆ˜(ìˆ˜ëŸ‰ x)
+	private int accumulatedPayment; // ´©Àû°áÁ¦±İ¾×, µî±Ş Æò°¡½Ã »ç¿ëÇÒ °Í
+	private int mileage; // ±âº» °í°´ºÎÅÍ ¸¶ÀÏ¸®Áö Àû¸³
+	private int buyNum;//´©Àû ±¸¸Å Ç×¸ñ¼ö(¼ö·® x)
 	private int cartNum;//
 	
 	public static final int CUSTOMERINFONUM=11;
