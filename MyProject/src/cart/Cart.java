@@ -34,8 +34,8 @@ public class Cart implements CartInterface {
 		System.out.println("3.결제 하기 4.이전 메뉴로");
 		System.out.println("==============================================");
 		System.out.print("메뉴 선택>> ");
-		int num = Main.sc.nextInt();
-		Main.sc.nextLine();// 버퍼클리어
+		String input = Main.sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
+		int num = Integer.parseInt(input); // 형 변환
 		return num;
 
 	}
@@ -164,9 +164,10 @@ public class Cart implements CartInterface {
 				totalPrice += list.get(i).getTotalPrice();// 결제할 금액
 				totalcount++;
 			}
+			totalPrice -= ((int) (totalPrice * discountRate));// 할인 적용된 최종 가격
 			System.out.println("----------------------------------------------");
 			System.out.println("할인: " + (int) (totalPrice * discountRate));
-			System.out.println("합계: " + (totalPrice - ((int) (totalPrice * discountRate))));// 최종 가격
+			System.out.println("합계: " + totalPrice);
 			System.out.println("----------------------------------------------");
 		}
 		return totalPrice;
