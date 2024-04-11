@@ -13,7 +13,7 @@ import performance.Performance;
 
 public class Cart implements CartInterface {
 
-	public ArrayList<CartItem> cartItem = new ArrayList<>();
+	public static ArrayList<CartItem> cartItem = new ArrayList<>();
 	public static int cartCount = 0;
 	public static int totalcount = 0;// 구매한 항목 수
 
@@ -40,35 +40,40 @@ public class Cart implements CartInterface {
 
 	}
 
-	public static void setCartToList() {
+	// 전체 카트 파일에서 로그인 한 고객의 카트 정보만 찾아오기
+	public void setCartToList(Customer nowUser) {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader("cart.txt"));
 
-			String costomerID;
-			int count = 0;
+			String line;
+			// 현재 고객의 아이디와 카트 파일에 아이디가 같다면...
+			while ((line = reader.readLine()) != null) {
+				if (line.contains(nowUser.getId())) {
+					String[] readCart = new String[CartItem.CARTIFONUM];
+					readCart[0] = line;
+					for (int i = 1; i < CartItem.CARTIFONUM; i++) {
+						readCart[i] = reader.readLine();
+					}
+					CartItem cart = new CartItem(readCart[0], readCart[1], readCart[2], Integer.parseInt(readCart[3]),
+							Integer.parseInt(readCart[4]), readCart[5]);
 
-			while ((costomerID = reader.readLine()) != null) {
-				String[] readCart = new String[CartItem.CARTIFONUM * Main.nowUser.getCartNum()];
-				readCart[0] = costomerID;
-
-				for (int i = 1; i < CartItem.CARTIFONUM * Main.nowUser.getCartNum(); i++) {
-					readCart[i] = reader.readLine();
-				}
-				CartItem cart = new CartItem(readCart[0], readCart[1], readCart[2], Integer.parseInt(readCart[3]),
-						Integer.parseInt(readCart[4]),readCart[5]);
-				count++;
+					// 이미 카트에 항목 있으면 수량과 좌석 번호만 업데이트
+					if (!isCartInPerformance(readCart[1], Integer.parseInt(readCart[3]), readCart[5])) {
+						cartItem.add(cart); // 아니면 카트에 항목 추가
+					} // end of if
+				} // end of if
 			} // end of while
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				reader.close();
+				cartCount=cartItem.size();
 			} catch (IOException e) {
 				e.printStackTrace();
 			} // end of catch
 		} // end of finally
-
 	}// end of setCartToList
 
 	@Override
@@ -89,12 +94,12 @@ public class Cart implements CartInterface {
 	}
 
 	@Override
-	public boolean isCartInPerformance(String id, int quantity,String seatNum) {
+	public boolean isCartInPerformance(String id, int quantity, String seatNum) {
 		boolean flag = false;
 		for (int i = 0; i < cartItem.size(); i++) {
-			if (id.equals(cartItem.get(i).getPerformanceId())) {//카트리스트 안에 이미 해당 공연이 들어있다면...
-				cartItem.get(i).setQuantity(cartItem.get(i).getQuantity() + quantity);//수량만 증가
-				cartItem.get(i).setSeatNum(cartItem.get(i).getSeatNum()+","+seatNum);//좌석 번호 추가해줌
+			if (id.equals(cartItem.get(i).getPerformanceId())) {// 카트리스트 안에 이미 해당 공연이 들어있다면...
+				cartItem.get(i).setQuantity(cartItem.get(i).getQuantity() + quantity);// 수량만 증가
+				cartItem.get(i).setSeatNum(cartItem.get(i).getSeatNum() + "," + seatNum);// 좌석 번호 추가해줌
 				flag = true;
 			}
 		}
@@ -102,8 +107,8 @@ public class Cart implements CartInterface {
 	}
 
 	@Override
-	public void insertPerformance(Performance p, int quantity, Customer nowUser,String seatNum) {
-		CartItem pItem = new CartItem(p, quantity, nowUser,seatNum);
+	public void insertPerformance(Performance p, int quantity, Customer nowUser, String seatNum) {
+		CartItem pItem = new CartItem(p, quantity, nowUser, seatNum);
 		cartItem.add(pItem);
 		cartCount = cartItem.size();
 
@@ -173,7 +178,7 @@ public class Cart implements CartInterface {
 		return totalPrice;
 	}
 
-	public static void printTotalPayment(ArrayList<CartItem> list,Customer nowUser) {
+	public static void printTotalPayment(ArrayList<CartItem> list, Customer nowUser) {
 		System.out.println("==============================================");
 		System.out.println("누적 구매 내역: ");
 		System.out.println("----------------------------------------------");
@@ -193,5 +198,36 @@ public class Cart implements CartInterface {
 			System.out.println("누적 구매 금액: " + nowUser.getAccumulatedPayment());
 			System.out.println("----------------------------------------------");
 		}
+	}
+	
+	public void setWithoutUserCartList(Customer customer) {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader("Cart.txt"));
+			String line;
+			String[] read = new String[CartItem.CARTIFONUM];
+			
+			while ((line = reader.readLine()) != null) {
+				read[0] = line;
+				for (int i = 1; i < CartItem.CARTIFONUM; i++) {
+					read[i] = reader.readLine();
+				}
+				CartItem cart = new CartItem(read[0], read[1], read[2], Integer.parseInt(read[3]),
+						Integer.parseInt(read[4]), read[5]);
+				if (!(read[0].equals(customer.getId()))) {
+					Main.totalCartList.add(cart);
+				}
+			} // end of while
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }
