@@ -14,7 +14,7 @@ public class CartItem {
 	private int totalPrice; // 총구매금액
 	private String seatNum;	//좌석 번호
 
-//Cart.insertPerformance에서 사용
+	//Cart.insertPerformance에서 사용
 	public CartItem(Performance item, int quantity,Customer nowUser,String seatNum) {
 		super();
 		this.item = item;
@@ -24,7 +24,6 @@ public class CartItem {
 		this.quantity=quantity;
 		updateTotalPrice();
 		this.seatNum=seatNum;
-		updateSeat();
 	}
 	
 	//모든 변수 받아서 생성함(Admin.setWithoutUserPaymentList,Main.setPaymaentToList,Cart.setCartToList()에서 사용
@@ -84,10 +83,5 @@ public class CartItem {
 		totalPrice = this.item.getTicketPrice() * this.quantity;
 	}
 	
-	//산 자리는 검게 칠해주자
-	private void updateSeat() {
-		
-		
-	}
 
 }

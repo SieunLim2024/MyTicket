@@ -241,7 +241,6 @@ public class Admin {
 
 	}
 
-//	}
 
 	private static void setWithoutUserPaymentList(Customer customer) {
 		BufferedReader reader = null;

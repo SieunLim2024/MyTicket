@@ -26,6 +26,7 @@ public class Main {
 	public static ArrayList<Customer> userList = new ArrayList<Customer>();
 	public static ArrayList<CartItem> paymentList = new ArrayList<>();
 	public static ArrayList<CartItem> totalPaymentList = new ArrayList<>();
+	public static ArrayList<CartItem> totalCartList = new ArrayList<>();
 	public static Cart cart = new Cart();
 	public static Cart payment = new Cart();
 	static boolean checkLogin = false;
@@ -36,9 +37,13 @@ public class Main {
 	public static void main(String[] args) {
 		setUserToList(userList);
 		Admin.setPerformanceToList();
+		//로그인
 		login();
-		if (checkLogin) { // 로그인 성공시에 메인 메뉴로ss
+		if (checkLogin) { // 로그인 성공시에 메인 메뉴로
 			setPaymaentToList(totalPaymentList, nowUser);
+			//로그인 한 고객의 카트 정보와 구매 정보 파일에서 불러옴
+			cart.setCartToList(nowUser);
+			//메인 메뉴로
 			mainMenu(nowUser);
 		}
 	}
@@ -311,9 +316,7 @@ public class Main {
 						// 장바구니에 넣기이미 카트에 항목 있으면 수량만 업데이트
 						if (!cart.isCartInPerformance(performanceList.get(numIndex).getPerformanceID(), numTicket,
 								seatNum)) { // 이미 카트에 항목 있으면 수량만 업데이트
-							cart.insertPerformance(performanceList.get(numIndex), numTicket, nowUser, seatNum); // 아니면
-																												// 카트에
-																												// 항목 추가
+							cart.insertPerformance(performanceList.get(numIndex), numTicket, nowUser, seatNum); // 아니면 카트에 항목 추가
 						} // end of if
 					} // end of else if(수량이 잔여 좌석 내인지...)
 
@@ -500,7 +503,50 @@ public class Main {
 	private static void askaddCart() {
 		countPerformance();
 		addCart(Admin.performanceList);
-//		}
+		
+		//로그인 한 유저 이외의 카트 정보 리스트를 totalCartList에 넣어줌
+		cart.setWithoutUserCartList(nowUser);
+		//totalCartList에 현재 유저의 카트 정보도 넣어주기
+		addUserCartToTotal();
+		//파일 덮어씌우기
+		saveCartFile(totalCartList);
+	}
+	
+	
+	//카트 파일을 덮어씌우기 한다.
+	private static void saveCartFile(ArrayList<CartItem> list) {
+		FileWriter fw = null;
+		try {
+			// 카트 파일 덮어씌우기
+			fw = new FileWriter("cart.txt");
+			for (int i = 0; i < list.size(); i++) {
+				fw.write(list.get(i).getCostomerID() + "\n");
+				fw.write(list.get(i).getPerformanceId() + "\n");
+				fw.write(list.get(i).getPerformanceName() + "\n");
+				fw.write(list.get(i).getQuantity() + "\n");
+				fw.write(list.get(i).getTotalPrice() + "\n");
+				fw.write(list.get(i).getSeatNum() + "\n");
+			}
+
+			System.out.println("구매 내역 파일이 저장 되었습니다.");
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	//현재 로그인 한 유저의 카트정보를 totalCartList에 넣어준다.
+	private static void addUserCartToTotal() {
+		for(int i=0;i<cart.cartItem.size();i++) {
+			totalCartList.add(cart.cartItem.get(i));
+		}
+		
 	}
 
 	private static int GenreInfo() {
@@ -661,9 +707,17 @@ public class Main {
 					str = input.nextLine();
 					if (str.toUpperCase().equals("Y")) {
 						resetSeats(indexInCart, indexInPer); // 선점된 좌석 비선점 상태로 되돌려준다.
-						System.out
-								.println(cart.cartItem.get(indexInCart).getPerformanceName() + " 장바구니에서 공연이 삭제 되었습니다.");
+						System.out.println(cart.cartItem.get(indexInCart).getPerformanceName() + " 장바구니에서 공연이 삭제 되었습니다.");
 						cart.removeCart(indexInCart);
+						
+						//totalCartList 초기화
+						totalCartList.clear();
+						//로그인 한 유저 이외의 카트 정보 리스트를 totalCartList에 넣어줌
+						cart.setWithoutUserCartList(nowUser);
+						//totalCartList에 현재 유저의 카트 정보도 넣어주기
+						addUserCartToTotal();
+						//파일 덮어씌우기
+						saveCartFile(totalCartList);
 					}
 					quit = true;
 				} else {
@@ -714,6 +768,13 @@ public class Main {
 				//카트 모두 비우기
 				cart.deleteCart();
 				System.out.println("장바구니에 모든 항목을 삭제했습니다.");
+				
+				//totalCartList 초기화
+				totalCartList.clear();
+				//totalCartList에 현재 유저의 카트 정보도 넣어주기
+				addUserCartToTotal();
+				//파일 덮어씌우기
+				saveCartFile(totalCartList);
 			}
 		} // end of if else
 	}// end of cartClear
