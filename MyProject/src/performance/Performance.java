@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Performance implements Comparable<Performance> {
 	public static final int PERIFONUM=12;
-	private String performanceID;// key°ªÀ¸·Î ÇÒ ¿¹Á¤
-	private String name; // °ø¿¬¸í
-	private String genre; // Àå¸£(¹ÂÁöÄÃ, ¿¬±Ø, ÄÜ¼­Æ®)
-	private String dayOfPerformance; // °ø¿¬ÀÏ
-	private String venue; // Àå¼Ò
-	private int limitAge; // °ü¶÷Á¦ÇÑ¿¬·É
-	private int totalSeats; // ÃÑÁÂ¼®¼ö
-	private int soldSeats; // ÆÇ¸ÅÁÂ¼®¼ö
-	private int ticketPrice; // Æ¼ÄÏ°¡°İ,compare
-	private String[][] seats;//ÁÂ¼® ÇöÈ²
-	private int yseats;//¸îÁÙ
-	private int xseats;//ÇÑ ÁÙ¿¡ ¸î¸í
+	private String performanceID;// keyê°’ìœ¼ë¡œ í•  ì˜ˆì •
+	private String name; // ê³µì—°ëª…
+	private String genre; // ì¥ë¥´(ë®¤ì§€ì»¬, ì—°ê·¹, ì½˜ì„œíŠ¸)
+	private String dayOfPerformance; // ê³µì—°ì¼
+	private String venue; // ì¥ì†Œ
+	private int limitAge; // ê´€ëŒì œí•œì—°ë ¹
+	private int totalSeats; // ì´ì¢Œì„ìˆ˜
+	private int soldSeats; // íŒë§¤ì¢Œì„ìˆ˜
+	private int ticketPrice; // í‹°ì¼“ê°€ê²©,compare
+	private String[][] seats;//ì¢Œì„ í˜„í™©
+	private int yseats;//ëª‡ì¤„
+	private int xseats;//í•œ ì¤„ì— ëª‡ëª…
 
 	public Performance(String performanceID, String name, String genre, String dayOfPerformance, String venue,
 			int limitAge, int totalSeats, int soldSeats, int ticketPrice,int yseats) {
@@ -144,11 +144,11 @@ public class Performance implements Comparable<Performance> {
 		this.xseats = xseats;
 	}
 	public static void printPerformance(ArrayList<Performance> list) {
-		System.out.println("°ø¿¬ ¸ñ·Ï: ");
+		System.out.println("ê³µì—° ëª©ë¡: ");
 		System.out.println("==============================================");
-		System.out.println("°ø¿¬ID\t\t  Àå¸£\t°¡°İ\t°ø¿¬ÀÏ\t    ½ÃÃ»¿¬·É\tÀÜ¿©ÁÂ¼®\t°ø¿¬ Àå¼Ò\t\t°ø¿¬¸í");
+		System.out.println("ê³µì—°ID\t\t  ì¥ë¥´\tê°€ê²©\tê³µì—°ì¼\t    ì‹œì²­ì—°ë ¹\tì”ì—¬ì¢Œì„\tê³µì—° ì¥ì†Œ\t\tê³µì—°ëª…");
 		if (list.size() == 0) {
-			System.out.println("µî·ÏµÈ °ø¿¬ÀÌ ¾ø½À´Ï´Ù..");
+			System.out.println("ë“±ë¡ëœ ê³µì—°ì´ ì—†ìŠµë‹ˆë‹¤..");
 		} else {
 			for (int i = 0; i < list.size(); i++) {
 				System.out.print(list.get(i).getPerformanceID() + "  |");
@@ -171,18 +171,18 @@ public class Performance implements Comparable<Performance> {
 	public static void printSeats(ArrayList<Performance> list,String performanceId) {
 		for (int i = 0; i < list.size(); i++) {
 			if(list.get(i).performanceID.equals(performanceId)) {
-				//2Â÷¿ø ¹è¿­ Ãâ·Â
+				//2ì°¨ì› ë°°ì—´ ì¶œë ¥
 				System.out.print("  ");
 				for(int j=0;j<list.get(i).xseats;j++) {
 					System.out.print((char)(j+65)+" ");
 				}
-				System.out.println();//ÁÙ ¹Ù²Ş
+				System.out.println();//ì¤„ ë°”ê¿ˆ
 				for(int k=0;k<list.get(i).yseats;k++) {
 					System.out.print(k+1+" ");
 					for(int j=0;j<list.get(i).xseats;j++) {
 						System.out.print(list.get(i).seats[k][j]+" ");
 					}
-					System.out.println();//ÁÙ ¹Ù²Ş
+					System.out.println();//ì¤„ ë°”ê¿ˆ
 				}
 			}
 		}
@@ -200,8 +200,8 @@ public class Performance implements Comparable<Performance> {
 		return this.ticketPrice-o.ticketPrice;
 	}
 
-	// °ø¿¬½Ã°£, °ü¶÷ ¿¬·É, Ä³½ºÆÃ, °£´ÜÇÑ ¼³¸í
-	// (ÇöÀç ³¯Â¥¿Í ºñ±³ÇÏ¿© °ø¿¬ÀÏÀÌ Áö³ª¸é ¿¹¸Å ¸øÇÏµµ·Ï)
-	// static À¸·Î count
+	// ê³µì—°ì‹œê°„, ê´€ëŒ ì—°ë ¹, ìºìŠ¤íŒ…, ê°„ë‹¨í•œ ì„¤ëª…
+	// (í˜„ì¬ ë‚ ì§œì™€ ë¹„êµí•˜ì—¬ ê³µì—°ì¼ì´ ì§€ë‚˜ë©´ ì˜ˆë§¤ ëª»í•˜ë„ë¡)
+	// static ìœ¼ë¡œ count
 
 }
