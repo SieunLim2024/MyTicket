@@ -7,14 +7,14 @@ import performance.Performance;
 public class CartItem {
 	public static final int CARTIFONUM = 6;
 	private Performance item;
-	private String costomerID; // ±¸¸ÅÀÚ id Ãß°¡ÇÏ°í cart¿¡ id ¿Í pw Á¦°ÅÇÔ
-	private String performanceId; // °ø¿¬id
-	private String performanceName; // °ø¿¬¸í
-	private int quantity; // ÀÎ¿ø¼ö
-	private int totalPrice; // ÃÑ±¸¸Å±İ¾×
-	private String seatNum;	//ÁÂ¼® ¹øÈ£
+	private String costomerID; // êµ¬ë§¤ì id ì¶”ê°€í•˜ê³  cartì— id ì™€ pw ì œê±°í•¨
+	private String performanceId; // ê³µì—°id
+	private String performanceName; // ê³µì—°ëª…
+	private int quantity; // ì¸ì›ìˆ˜
+	private int totalPrice; // ì´êµ¬ë§¤ê¸ˆì•¡
+	private String seatNum;	//ì¢Œì„ ë²ˆí˜¸
 
-//Cart.insertPerformance¿¡¼­ »ç¿ë
+//Cart.insertPerformanceì—ì„œ ì‚¬ìš©
 	public CartItem(Performance item, int quantity,Customer nowUser,String seatNum) {
 		super();
 		this.item = item;
@@ -27,7 +27,7 @@ public class CartItem {
 		updateSeat();
 	}
 	
-	//¸ğµç º¯¼ö ¹Ş¾Æ¼­ »ı¼ºÇÔ(Admin.setWithoutUserPaymentList,Main.setPaymaentToList,Cart.setCartToList()¿¡¼­ »ç¿ë
+	//ëª¨ë“  ë³€ìˆ˜ ë°›ì•„ì„œ ìƒì„±í•¨(Admin.setWithoutUserPaymentList,Main.setPaymaentToList,Cart.setCartToList()ì—ì„œ ì‚¬ìš©
 	public CartItem(String costomerID, String performanceId, String performanceName, int quantity, int totalPrice,String seatNum) {
 		super();
 		this.costomerID = costomerID;
@@ -84,7 +84,7 @@ public class CartItem {
 		totalPrice = this.item.getTicketPrice() * this.quantity;
 	}
 	
-	//»ê ÀÚ¸®´Â °Ë°Ô Ä¥ÇØÁÖÀÚ
+	//ì‚° ìë¦¬ëŠ” ê²€ê²Œ ì¹ í•´ì£¼ì
 	private void updateSeat() {
 		
 		

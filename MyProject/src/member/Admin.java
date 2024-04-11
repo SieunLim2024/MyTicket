@@ -35,53 +35,53 @@ public class Admin {
 		return adminPW;
 	}
 
-	// °ü¸®ÀÚ ·Î±×ÀÎ
+	// ê´€ë¦¬ì ë¡œê·¸ì¸
 	public static void adminLogin() {
-		System.out.println("°ü¸®ÀÚ Á¤º¸¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+		System.out.println("ê´€ë¦¬ì ì •ë³´ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
 
-		System.out.print("¾ÆÀÌµğ: ");
+		System.out.print("ì•„ì´ë””: ");
 		String adminId = sc.nextLine();
-		System.out.print("ºñ¹Ğ¹øÈ£: ");
+		System.out.print("ë¹„ë°€ë²ˆí˜¸: ");
 		String adminPW = sc.nextLine();
 
 		Admin admin = new Admin();
 		if (adminId.equals(admin.getAdminID()) && adminPW.equals(admin.getAdminPW())) {
 
-			System.out.println("°ü¸®ÀÚ ·Î±×ÀÎ¿¡ ¼º°ø ÇÏ¿´½À´Ï´Ù.");
+			System.out.println("ê´€ë¦¬ì ë¡œê·¸ì¸ì— ì„±ê³µ í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			adminLogin = true;
-			adminMenu();//°ü¸®ÀÚ ¸Ş´º·Î
+			adminMenu();//ê´€ë¦¬ì ë©”ë‰´ë¡œ
 		} else {
-			System.out.println("¾ÆÀÌµğ³ª ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
+			System.out.println("ì•„ì´ë””ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 
 	}
 
-	// °ü¸®ÀÚ ¸Ş´º
+	// ê´€ë¦¬ì ë©”ë‰´
 	public static void adminMenu() {
 		boolean quit = false;
 		while (!quit) {
 			int num = adminMenuInfo();
 			if (num < 1 || num > 5) {
-				System.out.println("¸Ş´º¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				System.out.println("ë©”ë‰´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				continue;
 			} // end of if
-			String[] menu = { "°ø¿¬ Ãß°¡", "°ø¿¬ »èÁ¦", "È¸¿ø Ãâ·Â", "È¸¿ø »èÁ¦", "Á¾·á" };
+			String[] menu = { "ê³µì—° ì¶”ê°€", "ê³µì—° ì‚­ì œ", "íšŒì› ì¶œë ¥", "íšŒì› ì‚­ì œ", "ì¢…ë£Œ" };
 			switch (menu[num - 1]) {
-			case "°ø¿¬ Ãß°¡":
+			case "ê³µì—° ì¶”ê°€":
 				addPerformance();
 				break;
-			case "°ø¿¬ »èÁ¦":
+			case "ê³µì—° ì‚­ì œ":
 				deletePerformance();
 				break;
-			case "È¸¿ø Ãâ·Â":
+			case "íšŒì› ì¶œë ¥":
 				printCustomer();
 				break;
-			case "È¸¿ø »èÁ¦":
+			case "íšŒì› ì‚­ì œ":
 				deleteUser();
 				break;
-			case "Á¾·á":
+			case "ì¢…ë£Œ":
 				quit = true;
-				System.out.println("°ü¸®ÀÚ ¸Ş´º¸¦ Á¾·áÇÕ´Ï´Ù.");
+				System.out.println("ê´€ë¦¬ì ë©”ë‰´ë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				break;
 
 			}// end of switch
@@ -90,7 +90,7 @@ public class Admin {
 
 	private static void deleteUser() {
 		searchUser();
-		// ´Ù½Ã ÆÄÀÏ·Î ¹Ù²ã¼­ ÀúÀå
+		// ë‹¤ì‹œ íŒŒì¼ë¡œ ë°”ê¿”ì„œ ì €ì¥
 		if (removeUserflag == true) {
 			saveUserToFile();
 		}
@@ -100,7 +100,7 @@ public class Admin {
 	public static void saveUserToFile() {
 		FileWriter fw = null;
 		try {
-			// °ø¿¬ ÆÄÀÏ µ¤¾î¾º¿ì±â
+			// ê³µì—° íŒŒì¼ ë®ì–´ì”Œìš°ê¸°
 			fw = new FileWriter("user.txt");
 			for (int i = 0; i < Main.userList.size(); i++) {
 				fw.write(Main.userList.get(i).getId() + "\n");
@@ -117,7 +117,7 @@ public class Admin {
 
 			}
 
-			System.out.println("°í°´ ÆÄÀÏÀÌ ÀúÀå µÇ¾ú½À´Ï´Ù.");
+			System.out.println("ê³ ê° íŒŒì¼ì´ ì €ì¥ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -132,11 +132,11 @@ public class Admin {
 
 	private static void searchUser() {
 		if (Main.userList.size() == 0) {
-			System.out.println("ÀúÀåµÈ °í°´ÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("ì €ì¥ëœ ê³ ê°ì´ ì—†ìŠµë‹ˆë‹¤.");
 		} else {
 			boolean quit = false;
 			while (!quit) {
-				System.out.print("»èÁ¦ÇÒ °í°´ °èÁ¤ÀÇ ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä :");
+				System.out.print("ì‚­ì œí•  ê³ ê° ê³„ì •ì˜ IDë¥¼ ì…ë ¥í•˜ì„¸ìš” :");
 				String inputID = sc.nextLine();
 				boolean flag = false;
 				int idIndex = -1;
@@ -149,10 +149,10 @@ public class Admin {
 					} // end of if
 				} // end of for
 				if (flag) {
-					System.out.println("ÇØ´ç °èÁ¤À» Ã£¾Ò½À´Ï´Ù.");
+					System.out.println("í•´ë‹¹ ê³„ì •ì„ ì°¾ì•˜ìŠµë‹ˆë‹¤.");
 
 				} else {
-					System.out.println("ÇØ´ç °èÁ¤À» Ã£Áö ¸øÇß½À´Ï´Ù.");
+					System.out.println("í•´ë‹¹ ê³„ì •ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
 					quit = true;
 					break;
 				}
@@ -160,11 +160,11 @@ public class Admin {
 
 				removeflag = removeCustomer(idIndex, removeflag);
 				if (removeflag) {
-					System.out.println("°èÁ¤ÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê³„ì •ì´ ì‚­ì œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					quit = true;
 					removeUserflag = true;
 				} else {
-					System.out.println("°èÁ¤ »èÁ¦°¡ Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê³„ì • ì‚­ì œê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 					quit = true;
 				} // end of else if
 
@@ -174,19 +174,19 @@ public class Admin {
 	}
 
 	private static boolean removeCustomer(int idIndex, boolean flag) {
-		System.out.println("ID\tÀÌ¸§\t¿¬¶ôÃ³\t\tÁÖ¼Ò\t\t³ªÀÌ\tµî±Ş\t´©Àû°áÁ¦±İ¾×\t¸¶ÀÏ¸®Áö");
+		System.out.println("ID\tì´ë¦„\tì—°ë½ì²˜\t\tì£¼ì†Œ\t\të‚˜ì´\të“±ê¸‰\tëˆ„ì ê²°ì œê¸ˆì•¡\të§ˆì¼ë¦¬ì§€");
 		System.out.println(Main.userList.get(idIndex).toString());
-		System.out.println("ÇØ´ç °èÁ¤À» »èÁ¦ÇÏ°Ú½À´Ï±î? Y|N ");
+		System.out.println("í•´ë‹¹ ê³„ì •ì„ ì‚­ì œí•˜ê² ìŠµë‹ˆê¹Œ? Y|N ");
 		String str = sc.nextLine();
 		if (str.toUpperCase().equals("Y")) {
 			boolean removePaymentflag = false;
 
-			removePaymentflag = removePayment(idIndex, removePaymentflag);// °èÁ¤ »èÁ¦ Àü¿¡ ±¸¸Å ³»¿ªµµ Á¦°ÅÇØÁÜ
+			removePaymentflag = removePayment(idIndex, removePaymentflag);// ê³„ì • ì‚­ì œ ì „ì— êµ¬ë§¤ ë‚´ì—­ë„ ì œê±°í•´ì¤Œ
 			if (removePaymentflag) {
-				System.out.println("ÇØ´ç °èÁ¤ÀÇ ±¸¸Å ³»¿ªÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
+				System.out.println("í•´ë‹¹ ê³„ì •ì˜ êµ¬ë§¤ ë‚´ì—­ì´ ì‚­ì œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				removeUserflag = true;
 			} else {
-				System.out.println("ÇØ´ç °èÁ¤ÀÇ ±¸¸Å ³»¿ª »èÁ¦°¡ ½ÇÆĞÇß½À´Ï´Ù.");
+				System.out.println("í•´ë‹¹ ê³„ì •ì˜ êµ¬ë§¤ ë‚´ì—­ ì‚­ì œê°€ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 			} // end of else if
 
 			Main.userList.remove(idIndex);
@@ -199,15 +199,15 @@ public class Admin {
 
 	//
 	private static boolean removePayment(int idIndex, boolean flag) {
-		Main.setPaymaentToList(Main.totalPaymentList, Main.userList.get(idIndex));// ÀÏ´Ü ÃÑ ¸®½ºÆ® ¸¸µë...
-		Cart.printTotalPayment(Main.totalPaymentList, Main.userList.get(idIndex));// »èÁ¦µÉ ³»¿ë º¸¿©ÁÜ
-		System.out.println("À§ ³»¿ªÀ» »èÁ¦ ÇÕ´Ï´Ù.");
-		Main.totalPaymentList.clear();// ´Ù º¸¿©ÁáÀ¸´Ï ºñ¿öÁÜ
-		// º¸¿©ÁØ ºÎºĞ Á¦¿ÜÇÑ ¸®½ºÆ® ¸¸µé¾î¾ßÇÔ
+		Main.setPaymaentToList(Main.totalPaymentList, Main.userList.get(idIndex));// ì¼ë‹¨ ì´ ë¦¬ìŠ¤íŠ¸ ë§Œë“¬...
+		Cart.printTotalPayment(Main.totalPaymentList, Main.userList.get(idIndex));// ì‚­ì œë  ë‚´ìš© ë³´ì—¬ì¤Œ
+		System.out.println("ìœ„ ë‚´ì—­ì„ ì‚­ì œ í•©ë‹ˆë‹¤.");
+		Main.totalPaymentList.clear();// ë‹¤ ë³´ì—¬ì¤¬ìœ¼ë‹ˆ ë¹„ì›Œì¤Œ
+		// ë³´ì—¬ì¤€ ë¶€ë¶„ ì œì™¸í•œ ë¦¬ìŠ¤íŠ¸ ë§Œë“¤ì–´ì•¼í•¨
 		setWithoutUserPaymentList(Main.userList.get(idIndex));
-		// ±×°ÉÀ» ÆÄÀÏ¿¡ ÀúÀå
+		// ê·¸ê±¸ì„ íŒŒì¼ì— ì €ì¥
 		savePaymentFile(withoutUserPaymentList);
-		// ¸®½ºÆ® ÃÊ±âÈ­(´Ù½Ã ³Ö¾îÁÙ ÇÊ¿ä´Â ¾øÀ½)
+		// ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”(ë‹¤ì‹œ ë„£ì–´ì¤„ í•„ìš”ëŠ” ì—†ìŒ)
 		withoutUserPaymentList.clear();
 		flag = true;
 
@@ -217,7 +217,7 @@ public class Admin {
 	private static void savePaymentFile(ArrayList<CartItem> list) {
 		FileWriter fw = null;
 		try {
-			// °áÁ¦ ³»¿ª ÆÄÀÏ µ¤¾î¾º¿ì±â
+			// ê²°ì œ ë‚´ì—­ íŒŒì¼ ë®ì–´ì”Œìš°ê¸°
 			fw = new FileWriter("payment.txt");
 			for (int i = 0; i < list.size(); i++) {
 				fw.write(list.get(i).getCostomerID() + "\n");
@@ -228,7 +228,7 @@ public class Admin {
 				fw.write(list.get(i).getTotalPrice() + "\n");
 			}
 
-			System.out.println("±¸¸Å ³»¿ª ÆÄÀÏÀÌ ÀúÀå µÇ¾ú½À´Ï´Ù.");
+			System.out.println("êµ¬ë§¤ ë‚´ì—­ íŒŒì¼ì´ ì €ì¥ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -275,16 +275,16 @@ public class Admin {
 
 	public static int adminMenuInfo() {
 		System.out.println("==============================================");
-		System.out.println("¹İ°©½À´Ï´Ù. KH Æ¼ÄÏ °ü¸®ÀÚ ¸Ş´º ÀÔ´Ï´Ù.");
+		System.out.println("ë°˜ê°‘ìŠµë‹ˆë‹¤. KH í‹°ì¼“ ê´€ë¦¬ì ë©”ë‰´ ì…ë‹ˆë‹¤.");
 		System.out.println("----------------------------------------------");
-		System.out.println("1.°ø¿¬ Ãß°¡ 2.°ø¿¬ »èÁ¦");
-		System.out.println("3.È¸¿ø Ãâ·Â 4.È¸¿ø »èÁ¦");
-		System.out.println("5.Á¾·á");
+		System.out.println("1.ê³µì—° ì¶”ê°€ 2.ê³µì—° ì‚­ì œ");
+		System.out.println("3.íšŒì› ì¶œë ¥ 4.íšŒì› ì‚­ì œ");
+		System.out.println("5.ì¢…ë£Œ");
 		System.out.println("==============================================");
 
-		System.out.print("¸Ş´º ¼±ÅÃ>> ");
-		String input = sc.nextLine().replaceAll("[^1-5]", "0");// 1~4 ÀÌ¿Ü´Â 0, ¸Ş´º¿¡ 0 ¾ø¾î¾ßÇÔ
-		int num = Integer.parseInt(input); // Çü º¯È¯
+		System.out.print("ë©”ë‰´ ì„ íƒ>> ");
+		String input = sc.nextLine().replaceAll("[^1-5]", "0");// 1~4 ì´ì™¸ëŠ” 0, ë©”ë‰´ì— 0 ì—†ì–´ì•¼í•¨
+		int num = Integer.parseInt(input); // í˜• ë³€í™˜
 		return num;
 
 	}
@@ -297,44 +297,44 @@ public class Admin {
 		boolean yFlag = false;
 		if (adminLogin = true) {
 			String[] writePerformance = new String[Performance.PERIFONUM];
-			System.out.println("°ø¿¬ Á¤º¸¸¦ Ãß°¡ÇÏ°Ú½À´Ï±î? Y|N");
+			System.out.println("ê³µì—° ì •ë³´ë¥¼ ì¶”ê°€í•˜ê² ìŠµë‹ˆê¹Œ? Y|N");
 			String str = sc.nextLine();
 
 			if (str.toUpperCase().equals("Y")) {
 				Date date = new Date();
-				SimpleDateFormat formatter = new SimpleDateFormat("YYMMDDHHMMS");
+				SimpleDateFormat formatter = new SimpleDateFormat("YYMMDDHHmmss");
 				String strDate = formatter.format(date);
-				// °ø¿¬ id´Â Ãß°¡ÇÏ´Â ½Ã°£(ÃÊ´ÜÀ§±îÁö)ÀÏÄ¡ ÇÏÁö ¾ÊÀ¸¸é Áßº¹µÇÁö ¾ÊÀ½
-				writePerformance[0] = "pID" + strDate.substring(0, 13);		//substringÀº ºÒÇÊ¿äÇÑ ³»¿ëÀÌ³ª Ãâ·Â½Ã ÁÙ ¸ÂÃã ÆíÀÇ¸¦ À§ÇØ ³Ö¾îµÒ... 
-				System.out.println("°ø¿¬ID: " + writePerformance[0]);
-				System.out.print("°ø¿¬¸í : ");
+				// ê³µì—° idëŠ” ì¶”ê°€í•˜ëŠ” ì‹œê°„(ì´ˆë‹¨ìœ„ê¹Œì§€)ì¼ì¹˜ í•˜ì§€ ì•Šìœ¼ë©´ ì¤‘ë³µë˜ì§€ ì•ŠìŒ
+				writePerformance[0] = "pID" + strDate;
+				System.out.println("ê³µì—°ID: " + writePerformance[0]);
+				System.out.print("ê³µì—°ëª… : ");
 				writePerformance[1] = sc.nextLine();
 				// -----------------------------------------------------------
 				while (!genreFlag) {
-					System.out.println("[¹ÂÁöÄÃ, ¿¬±Ø, ÄÜ¼­Æ®]");
-					System.out.print("Àå¸£ :");
+					System.out.println("[ë®¤ì§€ì»¬, ì—°ê·¹, ì½˜ì„œíŠ¸]");
+					System.out.print("ì¥ë¥´ :");
 					String input = sc.nextLine();
 
-					if (!(input.equals("¹ÂÁöÄÃ")||input.equals("¿¬±Ø")||input.equals("ÄÜ¼­Æ®"))) {// Àå¸£ ¹Ù¸£°ÔÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é
-						System.out.println("Àå¸£¸¦ ¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+					if (!(input.equals("ë®¤ì§€ì»¬")||input.equals("ì—°ê·¹")||input.equals("ì½˜ì„œíŠ¸"))) {// ì¥ë¥´ ë°”ë¥´ê²Œì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´
+						System.out.println("ì¥ë¥´ë¥¼ ë°”ë¥´ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 						continue;
 					}
 					writePerformance[2] = input;
 					genreFlag = true;
 				}
 				// -----------------------------------------------------------
-				System.out.print("°ø¿¬ÀÏ ¿¹)2024-01-01 :");
+				System.out.print("ê³µì—°ì¼ ì˜ˆ)2024-01-01 :");
 				writePerformance[3] = sc.nextLine();
-				System.out.print("°ø¿¬ Àå¼Ò: ");
+				System.out.print("ê³µì—° ì¥ì†Œ: ");
 				writePerformance[4] = sc.nextLine();
 				// -----------------------------------------------------------
 				while (!ageFlag) {
-					System.out.print("°ü¶÷Á¦ÇÑ¿¬·É (¼ıÀÚ ¸¸): ");
-					String input = sc.nextLine().replaceAll("[^0-9]", "");// ¼ıÀÚ ÀÌ¿Ü °ø¹é Ã³¸®
+					System.out.print("ê´€ëŒì œí•œì—°ë ¹ (ìˆ«ì ë§Œ): ");
+					String input = sc.nextLine().replaceAll("[^0-9]", "");// ìˆ«ì ì´ì™¸ ê³µë°± ì²˜ë¦¬
 
-					if (input.length() == 0) {// ¼ıÀÚ¸¦ ÇÑ¹øµµ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é
-						input = "0";// null ¹æÁö (»ç½Ç ÇÊ¿ä ¾øÀ¸´Ï º¸Çè»ï¾Æ)
-						System.out.println("¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+					if (input.length() == 0) {// ìˆ«ìë¥¼ í•œë²ˆë„ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´
+						input = "0";// null ë°©ì§€ (ì‚¬ì‹¤ í•„ìš” ì—†ìœ¼ë‹ˆ ë³´í—˜ì‚¼ì•„)
+						System.out.println("ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 						continue;
 					}
 					writePerformance[5] = input;
@@ -342,16 +342,16 @@ public class Admin {
 				}
 				// -----------------------------------------------------------
 				while (!seatFlag) {
-					System.out.print("ÃÑ ÁÂ¼®¼ö (¼ıÀÚ¸¸): ");
-					String input = sc.nextLine().replaceAll("[^0-9]", "");// ¼ıÀÚ ÀÌ¿Ü °ø¹é Ã³¸®
+					System.out.print("ì´ ì¢Œì„ìˆ˜ (ìˆ«ìë§Œ): ");
+					String input = sc.nextLine().replaceAll("[^0-9]", "");// ìˆ«ì ì´ì™¸ ê³µë°± ì²˜ë¦¬
 
-					if (input.length() == 0) {// ¼ıÀÚ¸¦ ÇÑ¹øµµ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é
+					if (input.length() == 0) {// ìˆ«ìë¥¼ í•œë²ˆë„ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´
 						input = "0";
-						System.out.println("¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+						System.out.println("ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 						continue;
 					}
 					if (input.equals("0")) {
-						System.out.println("0¼® ¹Ì¸¸Àº ÀÔ·ÂÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+						System.out.println("0ì„ ë¯¸ë§Œì€ ì…ë ¥ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 						continue;
 					} else {
 						writePerformance[6] = input;
@@ -359,19 +359,19 @@ public class Admin {
 					}
 				}
 				// -----------------------------------------------------------
-				writePerformance[7] = "0"; // °ø¿¬ Ãß°¡½Ã ÆÇ¸ÅÁÂ¼®¼ö ¹«Á¶°Ç 0À¸·Î
+				writePerformance[7] = "0"; // ê³µì—° ì¶”ê°€ì‹œ íŒë§¤ì¢Œì„ìˆ˜ ë¬´ì¡°ê±´ 0ìœ¼ë¡œ
 				// -----------------------------------------------------------
 				while (!priceFlag) {
-					System.out.print("Æ¼ÄÏ °¡°İ (¼ıÀÚ¸¸): ");
-					String input = sc.nextLine().replaceAll("[^0-9]", "");// ¼ıÀÚ ÀÌ¿Ü °ø¹é Ã³¸®
+					System.out.print("í‹°ì¼“ ê°€ê²© (ìˆ«ìë§Œ): ");
+					String input = sc.nextLine().replaceAll("[^0-9]", "");// ìˆ«ì ì´ì™¸ ê³µë°± ì²˜ë¦¬
 
-					if (input.length() == 0) {// ¼ıÀÚ¸¦ ÇÑ¹øµµ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é
+					if (input.length() == 0) {// ìˆ«ìë¥¼ í•œë²ˆë„ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´
 						input = "0";
-						System.out.println("¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+						System.out.println("ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 						continue;
 					}
 					if (input.equals("0")) {
-						System.out.println("0¿ø ¹Ì¸¸Àº ÀÔ·ÂÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+						System.out.println("0ì› ë¯¸ë§Œì€ ì…ë ¥ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 						continue;
 					} else {
 						writePerformance[8] = input;
@@ -380,16 +380,16 @@ public class Admin {
 				}
 				// -----------------------------------------------------------
 				while (!yFlag) {
-					System.out.print("°ø¿¬°ü ÁÂ¼® ¿­(¼ıÀÚ¸¸): ");
-					String input = sc.nextLine().replaceAll("[^0-9]", "");// ¼ıÀÚ ÀÌ¿Ü °ø¹é Ã³¸®
+					System.out.print("ê³µì—°ê´€ ì¢Œì„ ì—´(ìˆ«ìë§Œ): ");
+					String input = sc.nextLine().replaceAll("[^0-9]", "");// ìˆ«ì ì´ì™¸ ê³µë°± ì²˜ë¦¬
 
-					if (input.length() == 0) {// ¼ıÀÚ¸¦ ÇÑ¹øµµ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é
+					if (input.length() == 0) {// ìˆ«ìë¥¼ í•œë²ˆë„ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´
 						input = "0";
-						System.out.println("¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+						System.out.println("ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 						continue;
 					}
 					if (input.equals("0")) {
-						System.out.println("0¿­ ¹Ì¸¸Àº ÀÔ·ÂÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+						System.out.println("0ì—´ ë¯¸ë§Œì€ ì…ë ¥ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 						continue;
 					} else {
 						writePerformance[10] = input;
@@ -397,11 +397,11 @@ public class Admin {
 					}
 				}
 				// -----------------------------------------------------------
-				int total = Integer.parseInt(writePerformance[6]);// ÃÑ ÁÂ¼®¼ö
-				int y = Integer.parseInt(writePerformance[10]); // ÁÂ¼® ¿­ ¼ö
-				int x = 0;// ÁÂ¼® Çà ¼ö
-				int unable = 0;// ¾ÉÀ» ¼ö ¾ø´Â ÁÂ¼® ¼ö
-				// ³ª¸ÓÁö°¡ ÀÖÀ¸¸é ÇÑÄ­ ´Ã·ÁÁÖ±â
+				int total = Integer.parseInt(writePerformance[6]);// ì´ ì¢Œì„ìˆ˜
+				int y = Integer.parseInt(writePerformance[10]); // ì¢Œì„ ì—´ ìˆ˜
+				int x = 0;// ì¢Œì„ í–‰ ìˆ˜
+				int unable = 0;// ì•‰ì„ ìˆ˜ ì—†ëŠ” ì¢Œì„ ìˆ˜
+				// ë‚˜ë¨¸ì§€ê°€ ìˆìœ¼ë©´ í•œì¹¸ ëŠ˜ë ¤ì£¼ê¸°
 				if (total % y > 0) {
 					writePerformance[10] = y + "";// int->String
 					unable = total % y;
@@ -413,25 +413,25 @@ public class Admin {
 					writePerformance[11] = x + "";// int->String
 				}
 				// -----------------------------------------------------------
-				StringBuffer seat = new StringBuffer(); // ¼öÁ¤ È½¼ö°¡ ¸¹À¸¹Ç·Î String ´ë½Å StringBuffer »ç¿ë
+				StringBuffer seat = new StringBuffer(); // ìˆ˜ì • íšŸìˆ˜ê°€ ë§ìœ¼ë¯€ë¡œ String ëŒ€ì‹  StringBuffer ì‚¬ìš©
 				for (int i = 0; i < Integer.parseInt(writePerformance[6]); i++) {
-					seat.append("¡à");// ÃÑ ÁÂ¼®¼ö ¸¸Å­ ºóÀÚ¸® ¸¸µé¾îÁØ´Ù.
+					seat.append("â–¡");// ì´ ì¢Œì„ìˆ˜ ë§Œí¼ ë¹ˆìë¦¬ ë§Œë“¤ì–´ì¤€ë‹¤.
 				}
 				for (int i = 0; i < unable; i++) {
-					seat.append("x");// ¾ÉÀ» ¼ö ¾ø´Â ÀÚ¸®´Â x·Î Ç¥½Ã
+					seat.append("x");// ì•‰ì„ ìˆ˜ ì—†ëŠ” ìë¦¬ëŠ” xë¡œ í‘œì‹œ
 				}
 				writePerformance[9] = seat.toString();
 				// -----------------------------------------------------------
 				FileWriter fw = null;
 				try {
-					// »õ °ø¿¬ Á¤º¸¸¦ ÆÄÀÏ¿¡ ÀÌ¾î¾²±â À§ÇØ »ı¼ºÀÚ¿¡ true ¿É¼Ç ¼³Á¤
+					// ìƒˆ ê³µì—° ì •ë³´ë¥¼ íŒŒì¼ì— ì´ì–´ì“°ê¸° ìœ„í•´ ìƒì„±ìì— true ì˜µì…˜ ì„¤ì •
 					fw = new FileWriter("performance.txt", true);
 
 					for (int i = 0; i < Performance.PERIFONUM; i++) {
 						fw.write(writePerformance[i] + "\n");
 					}
 
-					System.out.println("»õ °ø¿¬ ÀúÀå µÇ¾ú½À´Ï´Ù.");
+					System.out.println("ìƒˆ ê³µì—° ì €ì¥ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} catch (Exception e) {
 					System.out.println(e);
 				} finally {
@@ -442,28 +442,28 @@ public class Admin {
 						e.printStackTrace();
 					}
 				}
-				performanceList.clear();// º¯°æ »çÇ× ÀÖÀ¸¹Ç·Î ÃÊ±âÈ­
-				setPerformanceToList();// ´Ù½Ã ÀúÀå
+				performanceList.clear();// ë³€ê²½ ì‚¬í•­ ìˆìœ¼ë¯€ë¡œ ì´ˆê¸°í™”
+				setPerformanceToList();// ë‹¤ì‹œ ì €ì¥
 
 			} else {
-				System.out.println("°ø¿¬À» Ãß°¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+				System.out.println("ê³µì—°ì„ ì¶”ê°€í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 		} else {
-			System.out.println("°ü¸®ÀÚ ·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+			System.out.println("ê´€ë¦¬ì ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
 		}
 
 	}
 
 	private static void deletePerformance() {
-		// ÆÄÀÏ->¸®½ºÆ®
+		// íŒŒì¼->ë¦¬ìŠ¤íŠ¸
 		System.out.println("==============================================");
-		System.out.println("ÇöÀç °ø¿¬ ¸ñ·Ï");
+		System.out.println("í˜„ì¬ ê³µì—° ëª©ë¡");
 		System.out.println("----------------------------------------------");
-		// ÇöÀç Á¸ÀçÇÏ´Â °ø¿¬(¿ä¾àº»)Ãâ·Â
+		// í˜„ì¬ ì¡´ì¬í•˜ëŠ” ê³µì—°(ìš”ì•½ë³¸)ì¶œë ¥
 		printPerformanceList(performanceList);
-		// °ø¿¬ ¾ÆÀÌµğ·Î °Ë»ö
+		// ê³µì—° ì•„ì´ë””ë¡œ ê²€ìƒ‰
 		searchID();
-		// °ø¿¬ »èÁ¦ µÇ¾ú´Ù¸é ´Ù½Ã ÆÄÀÏ·Î ¹Ù²ã¼­ ÀúÀå
+		// ê³µì—° ì‚­ì œ ë˜ì—ˆë‹¤ë©´ ë‹¤ì‹œ íŒŒì¼ë¡œ ë°”ê¿”ì„œ ì €ì¥
 		if(removeflag==true) {
 		savePerformanceFile(performanceList);
 		}
@@ -472,7 +472,7 @@ public class Admin {
 	public static void savePerformanceFile(ArrayList<Performance> performanceList) {
 		FileWriter fw = null;
 		try {
-			// °ø¿¬ ÆÄÀÏ µ¤¾î¾º¿ì±â
+			// ê³µì—° íŒŒì¼ ë®ì–´ì”Œìš°ê¸°
 			fw = new FileWriter("performance.txt");
 			for (int i = 0; i < performanceList.size(); i++) {
 				fw.write(performanceList.get(i).getPerformanceID() + "\n");
@@ -491,12 +491,12 @@ public class Admin {
 					}
 				}
 
-				fw.write("\n");// ÁÙ ¹Ù²Ş
+				fw.write("\n");// ì¤„ ë°”ê¿ˆ
 				fw.write(performanceList.get(i).getYseats() + "\n");
 				fw.write(performanceList.get(i).getXseats() + "\n");
 			}
 
-			System.out.println("°ø¿¬ ÆÄÀÏÀÌ ÀúÀå µÇ¾ú½À´Ï´Ù.");
+			System.out.println("ê³µì—° íŒŒì¼ì´ ì €ì¥ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -509,9 +509,9 @@ public class Admin {
 
 	}
 
-	// °ø¿¬(¿ä¾àº»)Ãâ·Â
+	// ê³µì—°(ìš”ì•½ë³¸)ì¶œë ¥
 	private static void printPerformanceList(ArrayList<Performance> list) {
-		System.out.println("°ø¿¬ID\t\t  °ø¿¬ÀÏ\t\tÀå¸£\t°ø¿¬¸í");
+		System.out.println("ê³µì—°ID\t\t  ê³µì—°ì¼\t\tì¥ë¥´\tê³µì—°ëª…");
 		for (int i = 0; i < list.size(); i++) {
 			System.out.print(list.get(i).getPerformanceID() + "   ");
 			System.out.print(list.get(i).getDayOfPerformance() + "\t");
@@ -520,14 +520,14 @@ public class Admin {
 		} // end of for
 	}// end of printPerformanceList
 
-	// ¾ÆÀÌµğ·Î °Ë»ö
+	// ì•„ì´ë””ë¡œ ê²€ìƒ‰
 	private static void searchID() {
 		if (performanceList.size() == 0) {
-			System.out.println("ÀúÀåµÈ °ø¿¬ÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("ì €ì¥ëœ ê³µì—°ì´ ì—†ìŠµë‹ˆë‹¤.");
 		} else {
 			boolean quit = false;
 			while (!quit) {
-				System.out.print("»èÁ¦ÇÒ °ø¿¬ÀÇ ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä :");
+				System.out.print("ì‚­ì œí•  ê³µì—°ì˜ IDë¥¼ ì…ë ¥í•˜ì„¸ìš” :");
 				String inputID = sc.nextLine();
 				boolean flag = false;
 				int idIndex = -1;
@@ -539,18 +539,18 @@ public class Admin {
 					} // end of if
 				} // end of for
 				if (flag) {
-					System.out.println("ÇØ´ç °ø¿¬À» Ã£¾Ò½À´Ï´Ù.");
+					System.out.println("í•´ë‹¹ ê³µì—°ì„ ì°¾ì•˜ìŠµë‹ˆë‹¤.");
 				} else {
-					System.out.println("ÇØ´ç °ø¿¬À» Ã£Áö ¸øÇß½À´Ï´Ù.");
+					System.out.println("í•´ë‹¹ ê³µì—°ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
 					continue;
 				}
 
 				removeflag = removePerformance(idIndex, removeflag);
 				if (removeflag) {
-					System.out.println("°ø¿¬ÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê³µì—°ì´ ì‚­ì œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					quit = true;
 				} else {
-					System.out.println("°ø¿¬ »èÁ¦°¡ Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê³µì—° ì‚­ì œê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 					quit = true;
 				} // end of else if
 
@@ -561,7 +561,7 @@ public class Admin {
 
 	private static boolean removePerformance(int idIndex, boolean flag) {
 		System.out.println(performanceList.get(idIndex).toString());
-		System.out.println("ÇØ´ç °ø¿¬À» »èÁ¦ÇÏ°Ú½À´Ï±î? Y|N ");
+		System.out.println("í•´ë‹¹ ê³µì—°ì„ ì‚­ì œí•˜ê² ìŠµë‹ˆê¹Œ? Y|N ");
 		String str = sc.nextLine();
 		if (str.toUpperCase().equals("Y")) {
 			performanceList.remove(idIndex);
@@ -573,7 +573,7 @@ public class Admin {
 
 	}// end of removePerformance
 
-	// °ø¿¬ ÆÄÀÏ¿¡ ÀúÀåµÈ ³»¿ë ¸®½ºÆ®·Î...
+	// ê³µì—° íŒŒì¼ì— ì €ì¥ëœ ë‚´ìš© ë¦¬ìŠ¤íŠ¸ë¡œ...
 	public static void setPerformanceToList() {
 		BufferedReader reader = null;
 		try {
@@ -581,15 +581,15 @@ public class Admin {
 			String performanceID;
 			String[] readUser = new String[Performance.PERIFONUM];
 
-			String[][] setSeat;// ÁÂ¼® 2Â÷¿ø ¹è¿­·Î
+			String[][] setSeat;// ì¢Œì„ 2ì°¨ì› ë°°ì—´ë¡œ
 
 			while ((performanceID = reader.readLine()) != null) {
 				readUser[0] = performanceID;
 				for (int i = 1; i < Performance.PERIFONUM; i++) {
 					readUser[i] = reader.readLine();
 				}
-				String[] seatsSplit = new String[Integer.parseInt(readUser[6])];// ¿©±â¿¡ ²÷¾î¼­ ÇÏ³ª¾¿ ³Ö¾îÁÙ°ÅÀÓ(ÃÑ ÁÂ¼®¼ö·Î Å©±â ÀâÀ½)
-				seatsSplit = readUser[9].split("");// ÇÑÁÙ·Î µÈ°Å ÇÏ³ª¾¿ ²÷À½
+				String[] seatsSplit = new String[Integer.parseInt(readUser[6])];// ì—¬ê¸°ì— ëŠì–´ì„œ í•˜ë‚˜ì”© ë„£ì–´ì¤„ê±°ì„(ì´ ì¢Œì„ìˆ˜ë¡œ í¬ê¸° ì¡ìŒ)
+				seatsSplit = readUser[9].split("");// í•œì¤„ë¡œ ëœê±° í•˜ë‚˜ì”© ëŠìŒ
 				setSeat = new String[Integer.parseInt(readUser[10])][Integer.parseInt(readUser[11])];
 				int index = 0;
 				for (int j = 0; j < Integer.parseInt(readUser[10]); j++) {
@@ -603,7 +603,7 @@ public class Admin {
 						Integer.parseInt(readUser[7]), Integer.parseInt(readUser[8]), setSeat,
 						Integer.parseInt(readUser[10]), Integer.parseInt(readUser[11]));
 				performanceList.add(performance);
-				// ¹è¿­·Î ¸¸µé¾îÁÖ±â
+				// ë°°ì—´ë¡œ ë§Œë“¤ì–´ì£¼ê¸°
 
 //				System.out.println(performance);
 			} // end of while
@@ -621,7 +621,7 @@ public class Admin {
 	}// end of setPerformanceToList
 
 	private static void printCustomer() {
-		System.out.println("ID\tPW\tÀÌ¸§\t¿¬¶ôÃ³\t\tÁÖ¼Ò\t\t³ªÀÌ\tµî±Ş\t´©Àû°áÁ¦±İ¾×\t¸¶ÀÏ¸®Áö");
+		System.out.println("ID\tPW\tì´ë¦„\tì—°ë½ì²˜\t\tì£¼ì†Œ\t\të‚˜ì´\të“±ê¸‰\tëˆ„ì ê²°ì œê¸ˆì•¡\të§ˆì¼ë¦¬ì§€");
 		for (int i = 0; i < Main.userList.size(); i++) {
 			System.out.print(Main.userList.get(i).getId() + "  ");
 			System.out.print(Main.userList.get(i).getPw() + "\t");
