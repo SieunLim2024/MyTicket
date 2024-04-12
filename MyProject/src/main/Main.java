@@ -365,7 +365,6 @@ public class Main {
 					if (count == numTicket) {// 살 티켓 수만큼 좌석 번호 정했다면
 						flag = true;
 					}
-//				break;
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("좌석을 예시와 같은 형식으로 입력해주세요");
@@ -502,6 +501,8 @@ public class Main {
 		countPerformance();
 		addCart(Admin.performanceList);
 		
+		//전체 카트 리스트 초기화
+		totalCartList.clear();
 		//로그인 한 유저 이외의 카트 정보 리스트를 totalCartList에 넣어줌
 		cart.setWithoutUserCartList(nowUser);
 		//totalCartList에 현재 유저의 카트 정보도 넣어주기
@@ -722,7 +723,7 @@ public class Main {
 					quit = true;
 				} else {
 					System.out.println("다시 입력해 주세요");
-				}//endo of if else
+				}//end of if else
 			}//end of while
 		}//end of else if
 	}//end of cartRemoveItem
