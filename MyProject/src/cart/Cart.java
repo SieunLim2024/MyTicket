@@ -75,24 +75,26 @@ public class Cart implements CartInterface {
 			} // end of catch
 		} // end of finally
 	}// end of setCartToList
-
-	@Override
-	public void printPerformanceList(ArrayList<Performance> pList) {
-		for (int i = 0; i < pList.size(); i++) {
-			Performance performance = pList.get(i);
-			System.out.print(performance.getPerformanceID() + "|");
-			System.out.print(performance.getGenre() + "|");
-			System.out.print(performance.getDayOfPerformance() + "|");
-			System.out.print(performance.getLimitAge() + "|");
-			System.out.print(performance.getVenue() + "|");
-			System.out.print(performance.getSoldSeats() + "/" + performance.getTotalSeats() + "|");
-			System.out.print(performance.getSoldSeats() + "|");
-			System.out.print(performance.getName());
-			System.out.println("");
-		}
-
-	}
-
+	
+//	//공연 리스트에 있는 것 출력
+//	@Override
+//	public void printPerformanceList(ArrayList<Performance> pList) {
+//		for (int i = 0; i < pList.size(); i++) {
+//			Performance performance = pList.get(i);
+//			System.out.print(performance.getPerformanceID() + "|");
+//			System.out.print(performance.getGenre() + "|");
+//			System.out.print(performance.getDayOfPerformance() + "|");
+//			System.out.print(performance.getLimitAge() + "|");
+//			System.out.print(performance.getVenue() + "|");
+//			System.out.print(performance.getSoldSeats() + "/" + performance.getTotalSeats() + "|");
+//			System.out.print(performance.getSoldSeats() + "|");
+//			System.out.print(performance.getName());
+//			System.out.println("");
+//		}
+//
+//	}
+	
+	//카트 안에 해당 공연이 있는지 확인
 	@Override
 	public boolean isCartInPerformance(String id, int quantity, String seatNum) {
 		boolean flag = false;
@@ -105,7 +107,8 @@ public class Cart implements CartInterface {
 		}
 		return flag;
 	}
-
+	
+	//카트에 공연 항목 추가
 	@Override
 	public void insertPerformance(Performance p, int quantity, Customer nowUser, String seatNum) {
 		CartItem pItem = new CartItem(p, quantity, nowUser, seatNum);
@@ -125,7 +128,8 @@ public class Cart implements CartInterface {
 		cartItem.clear();
 		cartCount = 0;
 	}
-
+	
+	//카트 내용 출력
 	@Override
 	public void printCart() {
 		System.out.println("==============================================");
@@ -145,7 +149,7 @@ public class Cart implements CartInterface {
 			}
 		}
 	}
-
+	//영수증 출력
 	public static int printPayment(ArrayList<CartItem> list) {
 		int totalPrice = 0;
 		double discountRate = 0;// 할인율
@@ -177,7 +181,7 @@ public class Cart implements CartInterface {
 		}
 		return totalPrice;
 	}
-
+	//누적 구매 내역 출력
 	public static void printTotalPayment(ArrayList<CartItem> list, Customer nowUser) {
 		System.out.println("==============================================");
 		System.out.println("누적 구매 내역: ");
@@ -199,7 +203,7 @@ public class Cart implements CartInterface {
 			System.out.println("----------------------------------------------");
 		}
 	}
-	
+	//받은 유저 제외한 모든 유저의 카트 내용 담은 리스트
 	public void setWithoutUserCartList(Customer customer) {
 		BufferedReader reader = null;
 		try {

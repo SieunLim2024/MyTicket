@@ -143,6 +143,8 @@ public class Performance implements Comparable<Performance> {
 	public void setXseats(int xseats) {
 		this.xseats = xseats;
 	}
+	
+	//받은 리스트에 있는 공연 목록 출력
 	public static void printPerformance(ArrayList<Performance> list) {
 		System.out.println("공연 목록: ");
 		System.out.println("==============================================");
@@ -168,6 +170,8 @@ public class Performance implements Comparable<Performance> {
 			}
 		}//end of else if
 	}
+	
+	//현재 해당하는 공연의 좌석 상태 출력
 	public static void printSeats(ArrayList<Performance> list,String performanceId) {
 		for (int i = 0; i < list.size(); i++) {
 			if(list.get(i).performanceID.equals(performanceId)) {
@@ -186,7 +190,7 @@ public class Performance implements Comparable<Performance> {
 				}
 			}
 		}
-	}
+	}//end of printSeats
 
 	@Override
 	public String toString() {

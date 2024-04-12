@@ -87,7 +87,8 @@ public class Admin {
 			}// end of switch
 		} // end of while
 	}// end of admiMenu
-
+	
+	//회원 삭제
 	private static void deleteUser() {
 		searchUser();
 		// 다시 파일로 바꿔서 저장
@@ -96,7 +97,7 @@ public class Admin {
 		}
 
 	}
-
+	//고객 파일 덮어씌우기
 	public static void saveUserToFile() {
 		FileWriter fw = null;
 		try {
@@ -129,7 +130,7 @@ public class Admin {
 		}
 
 	}
-
+	//유저 검색
 	private static void searchUser() {
 		if (Main.userList.size() == 0) {
 			System.out.println("저장된 고객이 없습니다.");
@@ -172,7 +173,8 @@ public class Admin {
 		} // end of else if
 
 	}
-
+	
+	//유저 삭제
 	private static boolean removeCustomer(int idIndex, boolean flag) {
 		System.out.println("ID\t이름\t연락처\t\t주소\t\t나이\t등급\t누적결제금액\t마일리지");
 		System.out.println(Main.userList.get(idIndex).toString());
@@ -197,7 +199,7 @@ public class Admin {
 		return flag;
 	}
 
-	//
+	//(탈퇴하는 회원의) 구매 내역 삭제
 	private static boolean removePayment(int idIndex, boolean flag) {
 		Main.setPaymaentToList(Main.totalPaymentList, Main.userList.get(idIndex));// 일단 총 리스트 만듬...
 		Cart.printTotalPayment(Main.totalPaymentList, Main.userList.get(idIndex));// 삭제될 내용 보여줌
@@ -213,7 +215,7 @@ public class Admin {
 
 		return flag;
 	}
-
+	//결제 내역 파일 덮어씌우기
 	private static void savePaymentFile(ArrayList<CartItem> list) {
 		FileWriter fw = null;
 		try {
@@ -240,8 +242,7 @@ public class Admin {
 		}
 
 	}
-
-
+	//받은 고객외 다른 고객들의 결제 내역 리스트로
 	private static void setWithoutUserPaymentList(Customer customer) {
 		BufferedReader reader = null;
 		try {
@@ -271,7 +272,8 @@ public class Admin {
 		}
 
 	}
-
+	
+	//관리자 메뉴 안내
 	public static int adminMenuInfo() {
 		System.out.println("==============================================");
 		System.out.println("반갑습니다. KH 티켓 관리자 메뉴 입니다.");
@@ -287,7 +289,7 @@ public class Admin {
 		return num;
 
 	}
-
+	//공연 추가
 	private static void addPerformance() {
 		boolean ageFlag = false;
 		boolean seatFlag = false;
@@ -452,7 +454,7 @@ public class Admin {
 		}
 
 	}
-
+	//공연 삭제
 	private static void deletePerformance() {
 		// 파일->리스트
 		System.out.println("==============================================");
@@ -467,7 +469,7 @@ public class Admin {
 		savePerformanceFile(performanceList);
 		}
 	}
-
+	//공연 파일 덮어씌우기
 	public static void savePerformanceFile(ArrayList<Performance> performanceList) {
 		FileWriter fw = null;
 		try {
@@ -557,7 +559,7 @@ public class Admin {
 		} // end of else if
 
 	}
-
+	//공연 삭제
 	private static boolean removePerformance(int idIndex, boolean flag) {
 		System.out.println(performanceList.get(idIndex).toString());
 		System.out.println("해당 공연을 삭제하겠습니까? Y|N ");
@@ -618,7 +620,8 @@ public class Admin {
 			}
 		}
 	}// end of setPerformanceToList
-
+	
+	//모든 고객 정보 출력
 	private static void printCustomer() {
 		System.out.println("ID\tPW\t이름\t연락처\t\t주소\t\t나이\t등급\t누적결제금액\t마일리지");
 		for (int i = 0; i < Main.userList.size(); i++) {
