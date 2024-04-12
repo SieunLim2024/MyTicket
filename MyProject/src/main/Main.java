@@ -115,7 +115,8 @@ public class Main {
 		}
 		return userList.get(nowUserIndex);
 	}
-
+	
+	//유저 파일을 리스트로
 	private static void setUserToList(ArrayList<Customer> userList) {
 		BufferedReader reader = null;
 		try {
@@ -220,7 +221,8 @@ public class Main {
 			quit = true;
 		}
 	}// end of joinMembership
-
+	
+	//아이디 중복 검사
 	private static boolean serchId(String id) {
 		boolean flag = false;
 		for (int i = 0; i < userList.size(); i++) {
@@ -268,10 +270,9 @@ public class Main {
 			}// end of switch
 		} // end of while
 	}// end of mainMenu
-
+	
+	//장바구니에 담기
 	private static void addCart(ArrayList<Performance> performanceList) {
-//		Admin.performanceList.clear();//체크
-//		Admin.setPerformanceToList();//체크
 		boolean quit = false;
 		while (!quit) {
 			System.out.print("장바구니에 추가할 공연의 ID를 입력하세요 : ");
@@ -327,7 +328,7 @@ public class Main {
 			}
 		}
 	}
-
+	//좌석번호 선택
 	private static String askSeatNum(int numTicket, String inputID, int numIndex) {
 		StringBuffer seatNum = new StringBuffer();// 수량 만큼 문자 수정해야해서 String 대신 StringBuffer
 		boolean flag = false;// 이미 고른 좌석인지 검사
@@ -397,14 +398,13 @@ public class Main {
 		}
 		return 0;
 	}
-
+	//장르 선택
 	private static void selectGenre() {
 		ArrayList<Performance> showList = new ArrayList<Performance>();
 
 		showList.addAll(Admin.performanceList); // 깊은 복사해둠.
 		boolean quit = false;
 		while (!quit) {
-
 			int num = GenreInfo();
 			if (num < 1 || num > 5) {
 				System.out.println("메뉴를 바르게 입력해주세요.");
@@ -414,7 +414,7 @@ public class Main {
 			switch (menu[num - 1]) {
 			case "전체 보기":
 				Performance.printPerformance(showList);
-//				고른거 보여주고...
+				//고른거 보여주고...
 				sortOrCart(showList);
 				break;
 			case "뮤지컬":
@@ -422,7 +422,7 @@ public class Main {
 				showMList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("뮤지컬"))
 						.collect(Collectors.toList());
 				Performance.printPerformance(showMList);
-//				고른거 보여주고...
+				//고른거 보여주고...
 				sortOrCart(showMList);
 				break;
 			case "연극":
@@ -430,7 +430,7 @@ public class Main {
 				showPList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("연극"))
 						.collect(Collectors.toList());
 				Performance.printPerformance(showPList);
-//				고른거 보여주고...
+				//고른거 보여주고...
 				sortOrCart(showPList);
 				break;
 			case "콘서트":
@@ -438,7 +438,7 @@ public class Main {
 				showCList = (ArrayList<Performance>) showList.stream().filter(s -> s.getGenre().equals("콘서트"))
 						.collect(Collectors.toList());
 				Performance.printPerformance(showCList);
-//				고른거 보여주고...
+				//고른거 보여주고...
 				sortOrCart(showCList);
 				break;
 			case "이전 화면으로":
@@ -451,8 +451,6 @@ public class Main {
 	}
 
 	private static void sortOrCart(ArrayList<Performance> showList) {
-//		ArrayList<Performance> sortList= new ArrayList<Performance>();
-//		sortList.addAll(showList); //깊은 복사해둠.
 		boolean quit = false;
 		while (!quit) {
 			// print
@@ -548,7 +546,8 @@ public class Main {
 		}
 		
 	}
-
+	
+	//장르 선택 안내
 	private static int GenreInfo() {
 		System.out.println("==============================================");
 		System.out.println("원하시는 장르를 선택해주세요.");
@@ -564,7 +563,7 @@ public class Main {
 		return num;
 	}
 
-	// 메인 메뉴 선택
+	// 메인 메뉴 안내
 	private static int mainInfo() {
 		System.out.println("==============================================");
 		System.out.println("환영합니다. KH 티켓 입니다.");
@@ -624,7 +623,8 @@ public class Main {
 			}// end of switch
 		} // end of while
 	}// end of cart
-
+	
+	//결제
 	private static void buy() throws CartException {
 		int count = 0;// 구매 개수
 		System.out.println("장바구니에 모든 항목을 결제하고 장바구니는 비워집니다.");
@@ -667,16 +667,16 @@ public class Main {
 		} else {
 			System.out.println("결제를 취소합니다.");
 		} // end of else if
-
-	}
-
+	}//end of buy
+	
+	//장바구니 항목 삭제
 	private static void cartRemoveItem() throws CartException {
 		if (cart.cartCount == 0) {
 			throw new CartException("장바구니 항목이 없습니다.");
 		} else {
 			if (cart.cartCount >= 0) {
 				cart.printCart();
-			}
+			}//end of if
 			boolean quit = false;
 			while (!quit) {
 				System.out.print("장바구니에서 삭제할 공연의 ID를 입력하세요 :");
@@ -692,15 +692,15 @@ public class Main {
 						indexInCart = i;
 						flag = true;
 						break;
-					}
-				}
+					}//end of if
+				}//end of for
 				// 공연 리스트에서의 인덱스 확인
 				for (int i = 0; i < Admin.performanceList.size(); i++) {
 					if (str.equals(Admin.performanceList.get(i).getPerformanceID())) {
 						indexInPer = i;
 						break;
-					}
-				}
+					}//end of if
+				}//end of for
 
 				if (flag) {
 					System.out.println("장바구니에서 삭제하겠습니까? Y|N ");
@@ -718,14 +718,14 @@ public class Main {
 						addUserCartToTotal();
 						//파일 덮어씌우기
 						saveCartFile(totalCartList);
-					}
+					}//end of if
 					quit = true;
 				} else {
 					System.out.println("다시 입력해 주세요");
-				}
-			}
-		}
-	}
+				}//endo of if else
+			}//end of while
+		}//end of else if
+	}//end of cartRemoveItem
 
 	// 선점된 좌석 비선점 상태로 되돌려준다.
 	private static void resetSeats(int indexInCart, int indexInPer) {
@@ -734,10 +734,10 @@ public class Main {
 		for (int i = 0; i < seatNum.length; i++) {
 			String seatNumstr = seatNum[i].toString();// 형 변환
 			updateSeats[Integer.parseInt(seatNumstr.substring(0,1)) - 1][((int)(seatNumstr.substring(1,2).charAt(0)))- 65] = "□";
-		}
+		}//end of for
 		Admin.performanceList.get(indexInPer).setSeats(updateSeats);// 좌석정보 리스트에 업데이트
 		Admin.savePerformanceFile(Admin.performanceList);// 파일에 다시 저장
-	}
+	}//end of resetSeats
 
 	// 카트 모두 비우기
 	private static void cartClear() throws CartException {
@@ -762,9 +762,9 @@ public class Main {
 							indexInPer = j;
 							//선점좌석 초기화
 							resetSeats(indexInCart, indexInPer);
-						}
-					}
-				}
+						}//end of if
+					}//end of for
+				}//end of for
 				//카트 모두 비우기
 				cart.deleteCart();
 				System.out.println("장바구니에 모든 항목을 삭제했습니다.");
@@ -775,13 +775,12 @@ public class Main {
 				addUserCartToTotal();
 				//파일 덮어씌우기
 				saveCartFile(totalCartList);
-			}
+			}//end of if
 		} // end of if else
 	}// end of cartClear
 
 	private static void writePaymentFile(ArrayList<CartItem> list) {
 		String[] writePayment = new String[CartItem.CARTIFONUM];
-
 		for (int i = 0; i < list.size(); i++) {
 			writePayment[0] = list.get(i).getCostomerID() + "\n";
 			writePayment[1] = list.get(i).getPerformanceId() + "\n";
@@ -789,7 +788,8 @@ public class Main {
 			writePayment[3] = list.get(i).getQuantity() + "\n";
 			writePayment[4] = list.get(i).getTotalPrice() + "\n";
 			writePayment[5] = list.get(i).getSeatNum() + "\n";
-		}
+		}//end of for
+		
 		FileWriter fw = null;
 		try {
 			// 새 고객 정보를 파일에 이어쓰기 위해 생성자에 true 옵션 설정
@@ -797,7 +797,7 @@ public class Main {
 
 			for (int i = 0; i < CartItem.CARTIFONUM; i++) {
 				fw.write(writePayment[i]);
-			}
+			}//end of for
 			System.out.println("구매 내역이 파일에 저장되었습니다.");
 		} catch (Exception e) {
 			System.out.println(e);
@@ -806,8 +806,8 @@ public class Main {
 				fw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-		}
+			}//end of try catch
+		}//end of try catch finally
 	}// end of writePaymentFile()
 
 	// 파일에서 로그인 한 사람의 구매 내역만 뽑아서 list에 넣음
@@ -823,11 +823,11 @@ public class Main {
 					read[0] = line;
 					for (int i = 1; i < CartItem.CARTIFONUM; i++) {
 						read[i] = reader.readLine();
-					}
+					}//end of for
 					CartItem payment = new CartItem(read[0], read[1], read[2], Integer.parseInt(read[3]),
 							Integer.parseInt(read[4]), read[5]);
 					totalPaymentList.add(payment);
-				}
+				}//end of if
 			} // end of while
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -836,7 +836,7 @@ public class Main {
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-		}
+			}//end of try catch
+		}//end of try catch finally
 	}// end of setPaymentToList
 }

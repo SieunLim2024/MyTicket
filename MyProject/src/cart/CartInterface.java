@@ -6,7 +6,7 @@ import member.Customer;
 import performance.Performance;
 
 public interface CartInterface {
-	void printPerformanceList(ArrayList<Performance> pList); // 전체 공연 정보 목록 출력
+//	void printPerformanceList(ArrayList<Performance> pList); // 전체 공연 정보 목록 출력
 
 	boolean isCartInPerformance(String id,int quantity,String seatNum); // 장바구니에 담긴 갯수를 고객 임의 지정 좌석갯수 증가
 
