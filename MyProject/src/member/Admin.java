@@ -16,8 +16,6 @@ import performance.Performance;
 
 public class Admin {
 	public static Scanner sc = new Scanner(System.in);
-	private String adminID = "admin";
-	private String adminPW = "admin1234";
 	private static boolean adminLogin = false;
 	public static final int PERINFONUM = 9;
 	public static ArrayList<Performance> performanceList = new ArrayList<Performance>();
@@ -27,16 +25,24 @@ public class Admin {
 	static boolean removePayflag = false;
 	static boolean removeflag = false;
 
-	public String getAdminID() {
-		return adminID;
-	}
-
-	public String getAdminPW() {
-		return adminPW;
-	}
-
 	// 관리자 로그인
 	public static void adminLogin() {
+		BufferedReader reader = null;
+		String id = null;
+		String pw = null;
+		try {
+			reader = new BufferedReader(new FileReader("admin.txt"));
+				id = reader.readLine();
+				pw = reader.readLine();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		System.out.println("관리자 정보를 입력하세요");
 
 		System.out.print("아이디: ");
@@ -45,11 +51,11 @@ public class Admin {
 		String adminPW = sc.nextLine();
 
 		Admin admin = new Admin();
-		if (adminId.equals(admin.getAdminID()) && adminPW.equals(admin.getAdminPW())) {
+		if (adminId.equals(id) && adminPW.equals(pw)) {
 
 			System.out.println("관리자 로그인에 성공 하였습니다.");
 			adminLogin = true;
-			adminMenu();//관리자 메뉴로
+			adminMenu();// 관리자 메뉴로
 		} else {
 			System.out.println("아이디나 비밀번호가 맞지 않습니다.");
 		}
@@ -87,8 +93,8 @@ public class Admin {
 			}// end of switch
 		} // end of while
 	}// end of admiMenu
-	
-	//회원 삭제
+
+	// 회원 삭제
 	private static void deleteUser() {
 		searchUser();
 		// 다시 파일로 바꿔서 저장
@@ -97,7 +103,8 @@ public class Admin {
 		}
 
 	}
-	//고객 파일 덮어씌우기
+
+	// 고객 파일 덮어씌우기
 	public static void saveUserToFile() {
 		FileWriter fw = null;
 		try {
@@ -130,7 +137,8 @@ public class Admin {
 		}
 
 	}
-	//유저 검색
+
+	// 유저 검색
 	private static void searchUser() {
 		if (Main.userList.size() == 0) {
 			System.out.println("저장된 고객이 없습니다.");
@@ -173,8 +181,8 @@ public class Admin {
 		} // end of else if
 
 	}
-	
-	//유저 삭제
+
+	// 유저 삭제
 	private static boolean removeCustomer(int idIndex, boolean flag) {
 		System.out.println("ID\t이름\t연락처\t\t주소\t\t나이\t등급\t누적결제금액\t마일리지");
 		System.out.println(Main.userList.get(idIndex).toString());
@@ -199,7 +207,7 @@ public class Admin {
 		return flag;
 	}
 
-	//(탈퇴하는 회원의) 구매 내역 삭제
+	// (탈퇴하는 회원의) 구매 내역 삭제
 	private static boolean removePayment(int idIndex, boolean flag) {
 		Main.setPaymaentToList(Main.totalPaymentList, Main.userList.get(idIndex));// 일단 총 리스트 만듬...
 		Cart.printTotalPayment(Main.totalPaymentList, Main.userList.get(idIndex));// 삭제될 내용 보여줌
@@ -215,7 +223,8 @@ public class Admin {
 
 		return flag;
 	}
-	//결제 내역 파일 덮어씌우기
+
+	// 결제 내역 파일 덮어씌우기
 	private static void savePaymentFile(ArrayList<CartItem> list) {
 		FileWriter fw = null;
 		try {
@@ -242,7 +251,8 @@ public class Admin {
 		}
 
 	}
-	//받은 고객외 다른 고객들의 결제 내역 리스트로
+
+	// 받은 고객외 다른 고객들의 결제 내역 리스트로
 	private static void setWithoutUserPaymentList(Customer customer) {
 		BufferedReader reader = null;
 		try {
@@ -272,8 +282,8 @@ public class Admin {
 		}
 
 	}
-	
-	//관리자 메뉴 안내
+
+	// 관리자 메뉴 안내
 	public static int adminMenuInfo() {
 		System.out.println("==============================================");
 		System.out.println("반갑습니다. KH 티켓 관리자 메뉴 입니다.");
@@ -289,7 +299,8 @@ public class Admin {
 		return num;
 
 	}
-	//공연 추가
+
+	// 공연 추가
 	private static void addPerformance() {
 		boolean ageFlag = false;
 		boolean seatFlag = false;
@@ -316,7 +327,7 @@ public class Admin {
 					System.out.print("장르 :");
 					String input = sc.nextLine();
 
-					if (!(input.equals("뮤지컬")||input.equals("연극")||input.equals("콘서트"))) {// 장르 바르게입력하지 않으면
+					if (!(input.equals("뮤지컬") || input.equals("연극") || input.equals("콘서트"))) {// 장르 바르게입력하지 않으면
 						System.out.println("장르를 바르게 입력해주세요.");
 						continue;
 					}
@@ -407,7 +418,7 @@ public class Admin {
 					writePerformance[10] = y + "";// int->String
 					unable = total % y;
 
-					x = (int) (total / y)+1;
+					x = (int) (total / y) + 1;
 					writePerformance[11] = x + "";// int->String
 				} else {
 					x = (int) (total / y);
@@ -454,7 +465,8 @@ public class Admin {
 		}
 
 	}
-	//공연 삭제
+
+	// 공연 삭제
 	private static void deletePerformance() {
 		// 파일->리스트
 		System.out.println("==============================================");
@@ -465,11 +477,12 @@ public class Admin {
 		// 공연 아이디로 검색
 		searchID();
 		// 공연 삭제 되었다면 다시 파일로 바꿔서 저장
-		if(removeflag==true) {
-		savePerformanceFile(performanceList);
+		if (removeflag == true) {
+			savePerformanceFile(performanceList);
 		}
 	}
-	//공연 파일 덮어씌우기
+
+	// 공연 파일 덮어씌우기
 	public static void savePerformanceFile(ArrayList<Performance> performanceList) {
 		FileWriter fw = null;
 		try {
@@ -559,7 +572,8 @@ public class Admin {
 		} // end of else if
 
 	}
-	//공연 삭제
+
+	// 공연 삭제
 	private static boolean removePerformance(int idIndex, boolean flag) {
 		System.out.println(performanceList.get(idIndex).toString());
 		System.out.println("해당 공연을 삭제하겠습니까? Y|N ");
@@ -620,8 +634,8 @@ public class Admin {
 			}
 		}
 	}// end of setPerformanceToList
-	
-	//모든 고객 정보 출력
+
+	// 모든 고객 정보 출력
 	private static void printCustomer() {
 		System.out.println("ID\tPW\t이름\t연락처\t\t주소\t\t나이\t등급\t누적결제금액\t마일리지");
 		for (int i = 0; i < Main.userList.size(); i++) {
