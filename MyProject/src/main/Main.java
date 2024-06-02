@@ -81,12 +81,12 @@ public class Main {
 
 	// 로그인 메뉴 안내
 	private static int loginInfo() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("반갑습니다. KH 티켓 입니다.");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		System.out.println("1.로그인 2.회원가입");
 		System.out.println("3.관리자 로그인 4.종료");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 
 		System.out.print("메뉴 선택>> ");
 		String input = sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
@@ -250,9 +250,9 @@ public class Main {
 			String[] menu = { "내 정보", "장바구니", "공연보기", "종료" };
 			switch (menu[num - 1]) {
 			case "내 정보":
-				System.out.println("==============================================");
+				System.out.println("============================================================================================");
 				System.out.println("내 정보");
-				System.out.println("----------------------------------------------");
+				System.out.println("--------------------------------------------------------------------------------------------");
 				System.out.println("아이디\t이름\t연락처\t\t주소\t\t나이\t등급\t누적결제금액\t마일리지");
 				System.out.println(nowUser); // 회원 정보 출력
 				Cart.printTotalPayment(totalPaymentList, nowUser);// 누적 구매 내역 출력
@@ -311,7 +311,7 @@ public class Main {
 //						Performance.printSeats(Admin.performanceList, inputID);// 좌석 보여주기
 						// 좌석 고르기
 						String seatNum = askSeatNum(numTicket, inputID, numIndex).toUpperCase();// 고른 좌석 받음.
-						System.out.println("----------------------------------------------");
+						System.out.println("--------------------------------------------------------------------------------------------");
 						System.out.println(performanceList.get(numIndex).getName() + " 공연이 장바구니에 추가되었습니다.");
 						System.out.println("선택한 좌석은 " + seatNum + " 입니다.");
 						// 장바구니에 넣기이미 카트에 항목 있으면 수량만 업데이트
@@ -334,7 +334,7 @@ public class Main {
 		boolean flag = false;// 이미 고른 좌석인지 검사
 		int count = 0;// 좌석 번호 정해진 수
 		while (!flag) {
-			System.out.println("----------------------------------------------");
+			System.out.println("--------------------------------------------------------------------------------------------");
 			Performance.printSeats(Admin.performanceList, inputID);
 			System.out.print("좌석 번호를 골라주세요 (ex:1A): ");
 			String input = sc.nextLine();
@@ -484,12 +484,12 @@ public class Main {
 	}
 
 	private static int sortOrCartInfo() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("원하시는 메뉴 선택해주세요.");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		System.out.println("1.가격 낮은 순 2.가격 높은 순");
 		System.out.println("3.장바구니 담기 4.이전 메뉴로");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 
 		System.out.print("메뉴 선택>> ");
 		String input = sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
@@ -527,7 +527,7 @@ public class Main {
 				fw.write(list.get(i).getSeatNum() + "\n");
 			}
 
-			System.out.println("구매 내역 파일이 저장 되었습니다.");
+//			System.out.println("장바구니 파일이 저장 되었습니다.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -550,13 +550,13 @@ public class Main {
 	
 	//장르 선택 안내
 	private static int GenreInfo() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("원하시는 장르를 선택해주세요.");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		System.out.println("1.전체 보기 2.뮤지컬");
 		System.out.println("3.연극 4.콘서트");
 		System.out.println("5.이전 화면으로");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 
 		System.out.print("메뉴 선택>> ");
 		String input = sc.nextLine().replaceAll("[^1-5]", "0");// 1~4 이외는 0으로
@@ -566,12 +566,12 @@ public class Main {
 
 	// 메인 메뉴 안내
 	private static int mainInfo() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("환영합니다. KH 티켓 입니다.");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		System.out.println("1.내 정보 2.장바구니");
 		System.out.println("3.공연보기 4.종료");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 
 		System.out.print("메뉴 선택>> ");
 		String input = sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
@@ -665,6 +665,11 @@ public class Main {
 			paymentList.clear();// 초기화
 			totalPaymentList.clear();// 초기화
 			setPaymaentToList(totalPaymentList, nowUser);// 다시 저장
+			
+			totalCartList.clear();
+			cart.setWithoutUserCartList(nowUser);//로그인한 사용자 외 구매 내역만 리스트에 넣음
+			saveCartFile(totalCartList);//덮어씌움
+			
 		} else {
 			System.out.println("결제를 취소합니다.");
 		} // end of else if

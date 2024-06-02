@@ -53,7 +53,7 @@ public class Admin {
 		Admin admin = new Admin();
 		if (adminId.equals(id) && adminPW.equals(pw)) {
 
-			System.out.println("관리자 로그인에 성공 하였습니다.");
+//			System.out.println("관리자 로그인에 성공 하였습니다.");
 			adminLogin = true;
 			adminMenu();// 관리자 메뉴로
 		} else {
@@ -125,7 +125,7 @@ public class Admin {
 
 			}
 
-			System.out.println("고객 파일이 저장 되었습니다.");
+//			System.out.println("고객 파일이 저장 되었습니다.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -239,7 +239,7 @@ public class Admin {
 				fw.write(list.get(i).getTotalPrice() + "\n");
 			}
 
-			System.out.println("구매 내역 파일이 저장 되었습니다.");
+//			System.out.println("구매 내역 파일이 저장 되었습니다.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -285,13 +285,13 @@ public class Admin {
 
 	// 관리자 메뉴 안내
 	public static int adminMenuInfo() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("반갑습니다. KH 티켓 관리자 메뉴 입니다.");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		System.out.println("1.공연 추가 2.공연 삭제");
 		System.out.println("3.회원 출력 4.회원 삭제");
 		System.out.println("5.종료");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 
 		System.out.print("메뉴 선택>> ");
 		String input = sc.nextLine().replaceAll("[^1-5]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
@@ -321,7 +321,7 @@ public class Admin {
 				System.out.println("공연ID: " + writePerformance[0]);
 				System.out.print("공연명 : ");
 				writePerformance[1] = sc.nextLine();
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				while (!genreFlag) {
 					System.out.println("[뮤지컬, 연극, 콘서트]");
 					System.out.print("장르 :");
@@ -334,12 +334,12 @@ public class Admin {
 					writePerformance[2] = input;
 					genreFlag = true;
 				}
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				System.out.print("공연일 예)2024-01-01 :");
 				writePerformance[3] = sc.nextLine();
 				System.out.print("공연 장소: ");
 				writePerformance[4] = sc.nextLine();
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				while (!ageFlag) {
 					System.out.print("관람제한연령 (숫자 만): ");
 					String input = sc.nextLine().replaceAll("[^0-9]", "");// 숫자 이외 공백 처리
@@ -352,7 +352,7 @@ public class Admin {
 					writePerformance[5] = input;
 					ageFlag = true;
 				}
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				while (!seatFlag) {
 					System.out.print("총 좌석수 (숫자만): ");
 					String input = sc.nextLine().replaceAll("[^0-9]", "");// 숫자 이외 공백 처리
@@ -370,9 +370,9 @@ public class Admin {
 						seatFlag = true;
 					}
 				}
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				writePerformance[7] = "0"; // 공연 추가시 판매좌석수 무조건 0으로
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				while (!priceFlag) {
 					System.out.print("티켓 가격 (숫자만): ");
 					String input = sc.nextLine().replaceAll("[^0-9]", "");// 숫자 이외 공백 처리
@@ -390,7 +390,7 @@ public class Admin {
 						priceFlag = true;
 					}
 				}
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				while (!yFlag) {
 					System.out.print("공연관 좌석 열(숫자만): ");
 					String input = sc.nextLine().replaceAll("[^0-9]", "");// 숫자 이외 공백 처리
@@ -408,7 +408,7 @@ public class Admin {
 						yFlag = true;
 					}
 				}
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				int total = Integer.parseInt(writePerformance[6]);// 총 좌석수
 				int y = Integer.parseInt(writePerformance[10]); // 좌석 열 수
 				int x = 0;// 좌석 행 수
@@ -416,15 +416,15 @@ public class Admin {
 				// 나머지가 있으면 한칸 늘려주기
 				if (total % y > 0) {
 					writePerformance[10] = y + "";// int->String
-					unable = total % y;
-
 					x = (int) (total / y) + 1;
+					unable = x-total % y;
+
 					writePerformance[11] = x + "";// int->String
 				} else {
 					x = (int) (total / y);
 					writePerformance[11] = x + "";// int->String
 				}
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				StringBuffer seat = new StringBuffer(); // 수정 횟수가 많으므로 String 대신 StringBuffer 사용
 				for (int i = 0; i < Integer.parseInt(writePerformance[6]); i++) {
 					seat.append("□");// 총 좌석수 만큼 빈자리 만들어준다.
@@ -433,7 +433,7 @@ public class Admin {
 					seat.append("x");// 앉을 수 없는 자리는 x로 표시
 				}
 				writePerformance[9] = seat.toString();
-				// -----------------------------------------------------------
+				// ---------------------------------------------------------------------------------------------------------
 				FileWriter fw = null;
 				try {
 					// 새 공연 정보를 파일에 이어쓰기 위해 생성자에 true 옵션 설정
@@ -469,9 +469,9 @@ public class Admin {
 	// 공연 삭제
 	private static void deletePerformance() {
 		// 파일->리스트
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("현재 공연 목록");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		// 현재 존재하는 공연(요약본)출력
 		printPerformanceList(performanceList);
 		// 공연 아이디로 검색
@@ -510,7 +510,7 @@ public class Admin {
 				fw.write(performanceList.get(i).getXseats() + "\n");
 			}
 
-			System.out.println("공연 파일이 저장 되었습니다.");
+//			System.out.println("공연 파일이 저장 되었습니다.");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -603,8 +603,7 @@ public class Admin {
 				for (int i = 1; i < Performance.PERIFONUM; i++) {
 					readUser[i] = reader.readLine();
 				}
-				String[] seatsSplit = new String[Integer.parseInt(readUser[6])];// 여기에 끊어서 하나씩 넣어줄거임(총 좌석수로 크기 잡음)
-				seatsSplit = readUser[9].split("");// 한줄로 된거 하나씩 끊음
+				String[] seatsSplit = readUser[9].split("");// 한줄로 된거 하나씩 끊음
 				setSeat = new String[Integer.parseInt(readUser[10])][Integer.parseInt(readUser[11])];
 				int index = 0;
 				for (int j = 0; j < Integer.parseInt(readUser[10]); j++) {

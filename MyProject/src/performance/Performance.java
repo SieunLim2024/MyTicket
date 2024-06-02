@@ -147,10 +147,10 @@ public class Performance implements Comparable<Performance> {
 	//받은 리스트에 있는 공연 목록 출력
 	public static void printPerformance(ArrayList<Performance> list) {
 		System.out.println("공연 목록: ");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("공연ID\t\t  장르\t가격\t공연일\t    시청연령\t잔여좌석\t공연 장소\t\t공연명");
 		if (list.size() == 0) {
-			System.out.println("등록된 공연이 없습니다..");
+			System.out.println("등록된 공연이 없습니다.");
 		} else {
 			for (int i = 0; i < list.size(); i++) {
 				System.out.print(list.get(i).getPerformanceID() + "  |");
@@ -194,9 +194,9 @@ public class Performance implements Comparable<Performance> {
 
 	@Override
 	public String toString() {
-		return "Performance [performanceID=" + performanceID + ", name=" + name + ", genre=" + genre
-				+ ", dayOfPerformance=" + dayOfPerformance + ", venue=" + venue + ", limitAge=" + limitAge
-				+ ", totalSeats=" + totalSeats + ", soldSeats=" + soldSeats + ", ticketPrice=" + ticketPrice + "]";
+		return "[performanceID=" + performanceID + ", name=" + name + ", genre=" + genre
+				+ ", \n dayOfPerformance=" + dayOfPerformance + ", venue=" + venue + ", limitAge=" + limitAge
+				+ ", totalSeats=" + totalSeats + ", \n soldSeats=" + soldSeats + ", ticketPrice=" + ticketPrice + "]";
 	}
 
 	@Override

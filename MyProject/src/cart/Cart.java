@@ -29,10 +29,10 @@ public class Cart implements CartInterface {
 
 	// 카트 메뉴 선택
 	public static int cartInfo() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("1.장바구니 항목 삭제 2.장바구니 모두 비우기");
 		System.out.println("3.결제 하기 4.이전 메뉴로");
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.print("메뉴 선택>> ");
 		String input = Main.sc.nextLine().replaceAll("[^1-4]", "0");// 1~4 이외는 0, 메뉴에 0 없어야함
 		int num = Integer.parseInt(input); // 형 변환
@@ -132,9 +132,9 @@ public class Cart implements CartInterface {
 	//카트 내용 출력
 	@Override
 	public void printCart() {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("장바구니 등록 목록: ");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		if (cartCount == 0) {
 			System.out.println("장바구니가 비어있습니다.");
 		} else {
@@ -156,9 +156,9 @@ public class Cart implements CartInterface {
 		if (Main.nowUser.getGrade().equals("VIP")) {
 			discountRate = 0.01;// vip면 할인 해줌
 		}
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("영수증: ");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		if (list.size() == 0) {
 			System.out.println("아직 구매 내역이 없습니다.");
 		} else {
@@ -174,18 +174,18 @@ public class Cart implements CartInterface {
 				totalcount++;
 			}
 			totalPrice -= ((int) (totalPrice * discountRate));// 할인 적용된 최종 가격
-			System.out.println("----------------------------------------------");
+			System.out.println("--------------------------------------------------------------------------------------------");
 			System.out.println("할인: " + (int) (totalPrice * discountRate));
 			System.out.println("합계: " + totalPrice);
-			System.out.println("----------------------------------------------");
+			System.out.println("--------------------------------------------------------------------------------------------");
 		}
 		return totalPrice;
 	}
 	//누적 구매 내역 출력
 	public static void printTotalPayment(ArrayList<CartItem> list, Customer nowUser) {
-		System.out.println("==============================================");
+		System.out.println("============================================================================================");
 		System.out.println("누적 구매 내역: ");
-		System.out.println("----------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------------------------");
 		if (list.size() == 0) {
 			System.out.println("아직 구매 내역이 없습니다.");
 		} else {
@@ -198,9 +198,9 @@ public class Cart implements CartInterface {
 				System.out.print(list.get(i).getPerformanceName());
 				System.out.println("\t");
 			}
-			System.out.println("----------------------------------------------");
+			System.out.println("--------------------------------------------------------------------------------------------");
 			System.out.println("누적 구매 금액: " + nowUser.getAccumulatedPayment());
-			System.out.println("----------------------------------------------");
+			System.out.println("--------------------------------------------------------------------------------------------");
 		}
 	}
 	//받은 유저 제외한 모든 유저의 카트 내용 담은 리스트
